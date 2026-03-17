@@ -1,0 +1,11 @@
+# AI Employee - Python Dependencies
+# Bronze Tier Requirements
+
+# File system watching (real-time monitoring)
+watchdog>=4.0.0
+
+# For future tiers (Gmail, WhatsApp, etc.)
+# google-api-python-client>=2.0.0  # Gmail API
+# google-auth-httplib2>=0.1.0     # Gmail Auth
+# google-auth-oauthlib>=1.0.0     # Gmail OAuth
+# playwright>=1.40.0              # WhatsApp Web automation
