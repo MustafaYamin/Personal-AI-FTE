@@ -135,18 +135,22 @@ class MyWatcher(BaseWatcher):
 | File | Description |
 |------|-------------|
 | `Personal AI Employee Hackathon 0_...md` | Complete architectural blueprint with tiered deliverables (Bronze/Silver/Gold/Platinum) |
+| `AI_Employee_Vault/README.md` | **Bronze Tier Complete** - Setup and usage guide |
+| `AI_Employee_Vault/src/orchestrator.py` | Main orchestrator with Plan.md generation |
+| `AI_Employee_Vault/src/filesystem_watcher.py` | File drop watcher (real-time monitoring) |
+| `.qwen/skills/ai-employee-bronze/SKILL.md` | AI Employee Bronze Skill documentation |
 | `.qwen/skills/browsing-with-playwright/SKILL.md` | Playwright MCP usage guide |
 | `.qwen/skills/browsing-with-playwright/scripts/mcp-client.py` | Universal MCP client supporting HTTP and stdio transports |
 | `.qwen/skills/browsing-with-playwright/references/playwright-tools.md` | Complete tool reference (22 tools available) |
 
 ## Achievement Tiers
 
-| Tier | Time | Deliverables |
-|------|------|--------------|
-| **Bronze** | 8-12h | Obsidian vault, one Watcher, basic folder structure |
-| **Silver** | 20-30h | Multiple Watchers, Plan.md generation, one MCP server, HITL workflow |
-| **Gold** | 40+h | Full integration, Odoo accounting, social media, Ralph Wiggum loop |
-| **Platinum** | 60+h | Cloud deployment, work-zone specialization, A2A upgrade |
+| Tier | Time | Deliverables | Status |
+|------|------|--------------|--------|
+| **Bronze** | 8-12h | Obsidian vault, one Watcher, basic folder structure, Qwen Code Skill, Plan.md generation | ✅ COMPLETE |
+| **Silver** | 20-30h | Multiple Watchers, one MCP server, HITL workflow, Task Scheduler | 📋 Ready to start |
+| **Gold** | 40+h | Full integration, Odoo accounting, social media, Ralph Wiggum loop | ⏳ Pending |
+| **Platinum** | 60+h | Cloud deployment, work-zone specialization, A2A upgrade | ⏳ Pending |
 
 ## Troubleshooting
 

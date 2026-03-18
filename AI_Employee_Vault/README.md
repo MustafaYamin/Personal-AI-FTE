@@ -50,6 +50,29 @@ python orchestrator.py ..
 
 This processes items and triggers Qwen Code.
 
+## Where to See Qwen Code's Output
+
+**Qwen Code's response appears in Terminal 2 (the orchestrator terminal).**
+
+When a task is processed, you'll see the output directly in the terminal:
+
+```
+============================================================
+[AI] QWEN CODE PROCESSING: FILE_20260318_xxx.md
+============================================================
+
+[Qwen Code's response/answer appears here - this is where
+ you'll see the AI's answer to your question/task]
+
+============================================================
+[OK] QWEN CODE COMPLETED: FILE_20260318_xxx.md
+============================================================
+
+[DONE] File moved to: Done/FILE_20260318_xxx.md
+```
+
+**Tip:** Keep Terminal 2 visible to watch the AI's responses in real-time!
+
 ### Testing the Workflow
 
 1. **Drop a test file** in the `Inbox` folder:
@@ -109,17 +132,66 @@ python filesystem_watcher.py .. --interval 10
 python orchestrator.py .. --interval 60
 ```
 
-## Bronze Tier Deliverables
+## Bronze Tier Deliverables (COMPLETE ✅)
 
-✅ Obsidian vault with Dashboard.md and Company_Handbook.md
-✅ One working Watcher script (Filesystem Watcher)
-✅ Claude Code integration for processing
-✅ Basic folder structure: /Inbox, /Needs_Action, /Done
+### Core Requirements
+- ✅ Obsidian vault with Dashboard.md and Company_Handbook.md
+- ✅ One working Watcher script (Filesystem Watcher)
+- ✅ Qwen Code integration for processing
+- ✅ Basic folder structure: /Inbox, /Needs_Action, /Done, /Plans, /Pending_Approval, /Approved, /Rejected, /Logs
+
+### Additional Features Implemented
+- ✅ **Qwen Code Skill** (`.qwen/skills/ai-employee-bronze/`) - Documented skill for AI Employee processing
+- ✅ **Plan.md Generation** - Automatic plan creation for complex tasks (3+ steps)
+- ✅ **Task Complexity Analysis** - Orchestrator analyzes tasks and creates plans when needed
+- ✅ **Processing Logs** - All actions logged to `/Logs/YYYY-MM-DD.md`
+- ✅ **Human-in-the-Loop Structure** - Approval workflow folders ready for Silver tier
+
+## How It Works
+
+```
+1. Drop file in Inbox/
+       ↓
+2. Filesystem Watcher detects → Creates action file in Needs_Action/
+       ↓
+3. Orchestrator analyzes complexity
+       ↓
+   ┌─────────────┬─────────────┐
+   │  Simple     │   Complex   │
+   │  (1-2 steps)│  (3+ steps) │
+   └──────┬──────┴──────┬──────┘
+          │             │
+          ↓             ↓
+   Direct processing  Create Plan.md
+          │             │
+          └──────┬──────┘
+                 ↓
+   4. Qwen Code processes task
+                 ↓
+   5. File moved to Done/
+   6. Plan status updated (if created)
+   7. Log entry created
+```
+
+## Example Log Output
+
+```
+2026-03-18 11:30:50 - Created action file: FILE_20260318_113050_test_live.md
+2026-03-18 11:31:06 - Task complexity: {'is_complex': True, ...}
+2026-03-18 11:31:06 - Task is complex, creating Plan.md
+2026-03-18 11:31:06 - Created plan file: PLAN_...md
+2026-03-18 11:31:31 - Qwen Code completed processing
+2026-03-18 11:31:31 - Updated plan status: completed
+2026-03-18 11:31:31 - Moved to Done: FILE_...md
+```
 
 ## Troubleshooting
 
 ### Qwen Code not found
-Ensure Qwen Code CLI is installed and in your PATH.
+Ensure Qwen Code CLI is installed and in your PATH. Run:
+```bash
+qwen --version
+```
 
 ### Python module not found
 ```bash
@@ -130,11 +202,25 @@ pip install watchdog
 - Ensure the Inbox folder path is correct
 - Check file permissions
 - Verify the watcher process is running
+- Check logs in `Logs/YYYY-MM-DD.log`
 
 ### Orchestrator not processing
 - Check logs in `Logs/` folder
-- Verify Claude Code is configured
+- Verify Qwen Code is configured: `qwen --version`
 - Ensure items are in `Needs_Action/` folder
+- Check if Qwen Code process timed out (default: 300 seconds)
+
+### Plan.md not created for complex task
+- Task complexity is determined by:
+  - Multiple checkbox items (`[ ]`)
+  - Multiple questions (`?`)
+  - Complex keywords (research, analyze, compare, etc.)
+- Check orchestrator logs for complexity analysis
+
+### File stuck in Needs_Action/
+- Check Qwen Code output in logs
+- Task may require approval (check `Pending_Approval/`)
+- Qwen Code may have encountered an error
 
 ## Next Steps (Silver Tier)
 

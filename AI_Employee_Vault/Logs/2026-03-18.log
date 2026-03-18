@@ -1,0 +1,387 @@
+2026-03-18 11:19:48,133 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 11:19:48,134 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 11:19:48,134 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 11:19:48,136 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 11:23:06,705 - Orchestrator - INFO - ==================================================
+2026-03-18 11:23:06,705 - Orchestrator - INFO - AI Employee Orchestrator Starting
+2026-03-18 11:23:06,705 - Orchestrator - INFO - Vault: ..
+2026-03-18 11:23:06,705 - Orchestrator - INFO - Check interval: 30s
+2026-03-18 11:23:06,709 - Orchestrator - INFO - ==================================================
+2026-03-18 11:30:50,852 - FilesystemWatcher - INFO - Created action file: FILE_20260318_113050_test_live.md
+2026-03-18 11:31:06,816 - Orchestrator - INFO - Processing item: FILE_20260318_113050_test_live.md
+2026-03-18 11:31:06,818 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 11:31:06,818 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 11:31:06,824 - Orchestrator - INFO - Created plan file: PLAN_20260318_113106_FILE_20260318_113050_test_live.md
+2026-03-18 11:31:31,520 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_113050_test_live.md
+2026-03-18 11:31:31,522 - Orchestrator - INFO - Updated plan status: PLAN_20260318_113106_FILE_20260318_113050_test_live.md
+2026-03-18 11:31:31,526 - Orchestrator - INFO - Moved to Done: FILE_20260318_113050_test_live.md
+2026-03-18 12:46:48,275 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 12:46:48,276 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 12:46:48,276 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 12:46:48,278 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 12:47:19,131 - Orchestrator - INFO - ==================================================
+2026-03-18 12:47:19,131 - Orchestrator - INFO - AI Employee Orchestrator Starting
+2026-03-18 12:47:19,132 - Orchestrator - INFO - Vault: ..
+2026-03-18 12:47:19,132 - Orchestrator - INFO - Check interval: 30s
+2026-03-18 12:47:19,132 - Orchestrator - INFO - ==================================================
+2026-03-18 12:48:35,790 - FilesystemWatcher - INFO - Created action file: FILE_20260318_124835_complex_research_task.md
+2026-03-18 12:48:35,792 - FilesystemWatcher - INFO - Created action file: FILE_20260318_124835_complex_research_task.md
+2026-03-18 12:48:49,155 - Orchestrator - INFO - Processing item: FILE_20260318_124835_complex_research_task.md
+2026-03-18 12:48:49,156 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:research', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 3}
+2026-03-18 12:48:49,157 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 12:48:49,158 - Orchestrator - INFO - Created plan file: PLAN_20260318_124849_FILE_20260318_124835_complex_research_task.md
+2026-03-18 12:49:02,121 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_124835_complex_research_task.md
+2026-03-18 12:49:02,122 - Orchestrator - INFO - Updated plan status: PLAN_20260318_124849_FILE_20260318_124835_complex_research_task.md
+2026-03-18 12:49:02,124 - Orchestrator - INFO - Moved to Done: FILE_20260318_124835_complex_research_task.md
+2026-03-18 12:53:11,111 - Orchestrator - INFO - Orchestrator stopped by user
+2026-03-18 12:53:11,120 - Orchestrator - INFO - Orchestrator shutdown complete
+2026-03-18 12:53:18,613 - FilesystemWatcher - INFO - Stopping watcher...
+2026-03-18 12:53:18,623 - FilesystemWatcher - INFO - FilesystemWatcher stopped
+2026-03-18 12:57:18,167 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 12:57:18,167 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 12:57:18,167 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 12:57:18,168 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 12:57:55,555 - FilesystemWatcher - INFO - Created action file: FILE_20260318_125755_math_question.md
+2026-03-18 12:57:55,556 - FilesystemWatcher - INFO - Created action file: FILE_20260318_125755_math_question.md
+2026-03-18 12:58:03,141 - Orchestrator - INFO - Processing item: FILE_20260318_125755_math_question.md
+2026-03-18 12:58:03,142 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 12:58:03,142 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 12:58:03,144 - Orchestrator - INFO - Created plan file: PLAN_20260318_125803_FILE_20260318_125755_math_question.md
+2026-03-18 12:58:53,086 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_125755_math_question.md
+2026-03-18 12:58:53,088 - Orchestrator - INFO - Updated plan status: PLAN_20260318_125803_FILE_20260318_125755_math_question.md
+2026-03-18 12:58:53,089 - Orchestrator - INFO - Moved to Done: FILE_20260318_125755_math_question.md
+2026-03-18 13:03:24,454 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:03:24,454 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:03:24,454 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:03:24,456 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:03:55,345 - FilesystemWatcher - INFO - Created action file: FILE_20260318_130355_capital_question.md
+2026-03-18 13:03:55,347 - FilesystemWatcher - INFO - Created action file: FILE_20260318_130355_capital_question.md
+2026-03-18 13:03:55,354 - FilesystemWatcher - INFO - Created action file: FILE_20260318_130355_capital_question.md
+2026-03-18 13:04:23,174 - Orchestrator - INFO - Processing item: FILE_20260318_130355_capital_question.md
+2026-03-18 13:04:23,175 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:04:23,175 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:04:23,178 - Orchestrator - INFO - Created plan file: PLAN_20260318_130423_FILE_20260318_130355_capital_question.md
+2026-03-18 13:04:32,601 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_130355_capital_question.md
+2026-03-18 13:04:32,602 - Orchestrator - INFO - Updated plan status: PLAN_20260318_130423_FILE_20260318_130355_capital_question.md
+2026-03-18 13:04:32,603 - Orchestrator - INFO - Moved to Done: FILE_20260318_130355_capital_question.md
+2026-03-18 13:08:09,395 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:08:09,395 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:08:09,395 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:08:09,397 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:08:27,883 - FilesystemWatcher - INFO - Created action file: FILE_20260318_130827_simple_math.md
+2026-03-18 13:08:27,884 - FilesystemWatcher - INFO - Created action file: FILE_20260318_130827_simple_math.md
+2026-03-18 13:08:27,892 - FilesystemWatcher - INFO - Created action file: FILE_20260318_130827_simple_math.md
+2026-03-18 13:08:27,892 - FilesystemWatcher - INFO - Created action file: FILE_20260318_130827_simple_math.md
+2026-03-18 13:08:32,634 - Orchestrator - INFO - Processing item: FILE_20260318_130827_simple_math.md
+2026-03-18 13:08:32,635 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:08:32,635 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:08:32,636 - Orchestrator - INFO - Created plan file: PLAN_20260318_130832_FILE_20260318_130827_simple_math.md
+2026-03-18 13:09:13,323 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_130827_simple_math.md
+2026-03-18 13:09:13,324 - Orchestrator - INFO - Updated plan status: PLAN_20260318_130832_FILE_20260318_130827_simple_math.md
+2026-03-18 13:09:13,326 - Orchestrator - INFO - Moved to Done: FILE_20260318_130827_simple_math.md
+2026-03-18 13:15:32,771 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:15:32,771 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:15:32,772 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:15:32,773 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:15:36,543 - FilesystemWatcher - INFO - Created action file: FILE_20260318_131536_test_capital.md
+2026-03-18 13:15:36,545 - FilesystemWatcher - INFO - Created action file: FILE_20260318_131536_test_capital.md
+2026-03-18 13:15:36,545 - FilesystemWatcher - INFO - Created action file: FILE_20260318_131536_test_capital.md
+2026-03-18 13:15:36,546 - FilesystemWatcher - INFO - Created action file: FILE_20260318_131536_test_capital.md
+2026-03-18 13:15:36,546 - FilesystemWatcher - INFO - Created action file: FILE_20260318_131536_test_capital.md
+2026-03-18 13:15:43,409 - Orchestrator - INFO - Processing item: FILE_20260318_131536_test_capital.md
+2026-03-18 13:15:43,410 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:15:43,410 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:15:43,412 - Orchestrator - INFO - Created plan file: PLAN_20260318_131543_FILE_20260318_131536_test_capital.md
+2026-03-18 13:16:10,211 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_131536_test_capital.md
+2026-03-18 13:16:10,214 - Orchestrator - INFO - Updated plan status: PLAN_20260318_131543_FILE_20260318_131536_test_capital.md
+2026-03-18 13:16:10,218 - Orchestrator - INFO - Moved to Done: FILE_20260318_131536_test_capital.md
+2026-03-18 13:19:08,973 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:19:08,974 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:19:08,974 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:19:08,975 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:19:13,478 - FilesystemWatcher - INFO - Created action file: FILE_20260318_131913_test_math.md
+2026-03-18 13:19:13,481 - FilesystemWatcher - INFO - Created action file: FILE_20260318_131913_test_math.md
+2026-03-18 13:19:13,482 - FilesystemWatcher - INFO - Created action file: FILE_20260318_131913_test_math.md
+2026-03-18 13:19:13,483 - FilesystemWatcher - INFO - Created action file: FILE_20260318_131913_test_math.md
+2026-03-18 13:19:13,483 - FilesystemWatcher - INFO - Created action file: FILE_20260318_131913_test_math.md
+2026-03-18 13:19:13,484 - FilesystemWatcher - INFO - Created action file: FILE_20260318_131913_test_math.md
+2026-03-18 13:19:40,248 - Orchestrator - INFO - Processing item: FILE_20260318_131913_test_math.md
+2026-03-18 13:19:40,249 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:19:40,249 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:19:40,251 - Orchestrator - INFO - Created plan file: PLAN_20260318_131940_FILE_20260318_131913_test_math.md
+2026-03-18 13:20:08,236 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_131913_test_math.md
+2026-03-18 13:20:08,238 - Orchestrator - INFO - Updated plan status: PLAN_20260318_131940_FILE_20260318_131913_test_math.md
+2026-03-18 13:20:08,240 - Orchestrator - INFO - Moved to Done: FILE_20260318_131913_test_math.md
+2026-03-18 13:21:51,922 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:21:51,922 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:21:51,922 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:21:51,925 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:21:55,597 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132155_debug_test.md
+2026-03-18 13:21:55,598 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132155_debug_test.md
+2026-03-18 13:21:55,599 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132155_debug_test.md
+2026-03-18 13:21:55,602 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132155_debug_test.md
+2026-03-18 13:21:55,602 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132155_debug_test.md
+2026-03-18 13:21:55,615 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132155_debug_test.md
+2026-03-18 13:22:08,270 - Orchestrator - INFO - Processing item: FILE_20260318_132155_debug_test.md
+2026-03-18 13:22:08,270 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:22:08,271 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:22:08,272 - Orchestrator - INFO - Created plan file: PLAN_20260318_132208_FILE_20260318_132155_debug_test.md
+2026-03-18 13:22:57,934 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_132155_debug_test.md
+2026-03-18 13:22:57,936 - Orchestrator - INFO - Updated plan status: PLAN_20260318_132208_FILE_20260318_132155_debug_test.md
+2026-03-18 13:22:57,937 - Orchestrator - INFO - Moved to Done: FILE_20260318_132155_debug_test.md
+2026-03-18 13:23:40,502 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:23:40,503 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:23:40,503 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:23:40,507 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:23:48,714 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132348_capture_test.md
+2026-03-18 13:23:48,714 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132348_capture_test.md
+2026-03-18 13:23:48,715 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132348_capture_test.md
+2026-03-18 13:23:48,715 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132348_capture_test.md
+2026-03-18 13:23:48,717 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132348_capture_test.md
+2026-03-18 13:23:48,719 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132348_capture_test.md
+2026-03-18 13:23:48,719 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132348_capture_test.md
+2026-03-18 13:23:48,720 - FilesystemWatcher - INFO - Created action file: FILE_20260318_132348_capture_test.md
+2026-03-18 13:23:57,944 - Orchestrator - INFO - Processing item: FILE_20260318_132348_capture_test.md
+2026-03-18 13:23:57,945 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:23:57,946 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:23:57,947 - Orchestrator - INFO - Created plan file: PLAN_20260318_132357_FILE_20260318_132348_capture_test.md
+2026-03-18 13:24:28,335 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_132348_capture_test.md
+2026-03-18 13:24:28,337 - Orchestrator - INFO - Updated plan status: PLAN_20260318_132357_FILE_20260318_132348_capture_test.md
+2026-03-18 13:24:28,338 - Orchestrator - INFO - Moved to Done: FILE_20260318_132348_capture_test.md
+2026-03-18 13:30:20,219 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:30:20,220 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:30:20,220 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:30:20,223 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:30:26,475 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133026_final_test.md
+2026-03-18 13:30:26,483 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133026_final_test.md
+2026-03-18 13:30:26,488 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133026_final_test.md
+2026-03-18 13:30:26,491 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133026_final_test.md
+2026-03-18 13:30:26,496 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133026_final_test.md
+2026-03-18 13:30:26,496 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133026_final_test.md
+2026-03-18 13:30:26,497 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133026_final_test.md
+2026-03-18 13:30:26,499 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133026_final_test.md
+2026-03-18 13:30:26,503 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133026_final_test.md
+2026-03-18 13:30:28,428 - Orchestrator - INFO - Processing item: FILE_20260318_133026_final_test.md
+2026-03-18 13:30:28,428 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:30:28,428 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:30:28,430 - Orchestrator - INFO - Created plan file: PLAN_20260318_133028_FILE_20260318_133026_final_test.md
+2026-03-18 13:31:04,670 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_133026_final_test.md
+2026-03-18 13:31:04,672 - Orchestrator - INFO - Updated plan status: PLAN_20260318_133028_FILE_20260318_133026_final_test.md
+2026-03-18 13:31:04,674 - Orchestrator - INFO - Moved to Done: FILE_20260318_133026_final_test.md
+2026-03-18 13:33:39,877 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:33:39,880 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:33:39,881 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:33:39,881 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:33:39,881 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:33:39,881 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:33:39,884 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:33:39,887 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:33:39,889 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:34:04,713 - Orchestrator - INFO - Processing item: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:34:04,714 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:34:04,714 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:34:04,717 - Orchestrator - INFO - Created plan file: PLAN_20260318_133404_FILE_20260318_133339_qwen_output.md
+2026-03-18 13:34:28,295 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:34:28,296 - Orchestrator - INFO - Updated plan status: PLAN_20260318_133404_FILE_20260318_133339_qwen_output.md
+2026-03-18 13:34:28,297 - Orchestrator - INFO - Moved to Done: FILE_20260318_133339_qwen_output.md
+2026-03-18 13:34:29,303 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:34:29,304 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:34:29,304 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:34:29,318 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:34:37,132 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133437_output_test.md
+2026-03-18 13:34:37,132 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133437_output_test.md
+2026-03-18 13:34:37,133 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133437_output_test.md
+2026-03-18 13:34:37,133 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133437_output_test.md
+2026-03-18 13:34:37,133 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133437_output_test.md
+2026-03-18 13:34:37,135 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133437_output_test.md
+2026-03-18 13:34:37,136 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133437_output_test.md
+2026-03-18 13:34:37,137 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133437_output_test.md
+2026-03-18 13:34:37,145 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133437_output_test.md
+2026-03-18 13:34:37,159 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133437_output_test.md
+2026-03-18 13:34:58,304 - Orchestrator - INFO - Processing item: FILE_20260318_133437_output_test.md
+2026-03-18 13:34:58,305 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:34:58,305 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:34:58,308 - Orchestrator - INFO - Created plan file: PLAN_20260318_133458_FILE_20260318_133437_output_test.md
+2026-03-18 13:35:23,054 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_133437_output_test.md
+2026-03-18 13:35:23,055 - Orchestrator - INFO - Updated plan status: PLAN_20260318_133458_FILE_20260318_133437_output_test.md
+2026-03-18 13:35:23,056 - Orchestrator - INFO - Moved to Done: FILE_20260318_133437_output_test.md
+2026-03-18 13:37:12,335 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:37:12,335 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:37:12,336 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:37:12,342 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:37:22,595 - FilesystemWatcher - INFO - Created action file: FILE_20260318_133722_fresh_test.md
+2026-03-18 13:42:51,171 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:42:51,171 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:42:51,172 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:42:51,174 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:48:08,769 - Orchestrator - INFO - ==================================================
+2026-03-18 13:48:08,770 - Orchestrator - INFO - AI Employee Orchestrator Starting
+2026-03-18 13:48:08,770 - Orchestrator - INFO - Vault: ..
+2026-03-18 13:48:08,770 - Orchestrator - INFO - Check interval: 30s
+2026-03-18 13:48:08,771 - Orchestrator - INFO - ==================================================
+2026-03-18 13:48:26,354 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:48:26,355 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:48:26,355 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:48:26,356 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:48:31,393 - FilesystemWatcher - INFO - Created action file: FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:48:38,777 - Orchestrator - INFO - Processing item: FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:48:38,778 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:48:38,778 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:48:38,780 - Orchestrator - INFO - Created plan file: PLAN_20260318_134838_FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:48:38,877 - Orchestrator - ERROR - Error processing with Qwen: 'charmap' codec can't encode character '\U0001f916' in position 0: character maps to <undefined>
+2026-03-18 13:49:08,881 - Orchestrator - INFO - Processing item: FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:49:08,881 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:49:08,881 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:49:08,883 - Orchestrator - INFO - Created plan file: PLAN_20260318_134908_FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:49:08,883 - Orchestrator - ERROR - Error processing with Qwen: 'charmap' codec can't encode character '\U0001f916' in position 0: character maps to <undefined>
+2026-03-18 13:49:38,886 - Orchestrator - INFO - Processing item: FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:49:38,886 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:49:38,886 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:49:38,891 - Orchestrator - INFO - Created plan file: PLAN_20260318_134938_FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:49:38,891 - Orchestrator - ERROR - Error processing with Qwen: 'charmap' codec can't encode character '\U0001f916' in position 0: character maps to <undefined>
+2026-03-18 13:50:08,904 - Orchestrator - INFO - Processing item: FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:50:08,907 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:50:08,907 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:50:08,911 - Orchestrator - INFO - Created plan file: PLAN_20260318_135008_FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:50:08,912 - Orchestrator - ERROR - Error processing with Qwen: 'charmap' codec can't encode character '\U0001f916' in position 0: character maps to <undefined>
+2026-03-18 13:50:38,923 - Orchestrator - INFO - Processing item: FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:50:38,926 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:50:38,927 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:50:38,931 - Orchestrator - INFO - Created plan file: PLAN_20260318_135038_FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:50:38,932 - Orchestrator - ERROR - Error processing with Qwen: 'charmap' codec can't encode character '\U0001f916' in position 0: character maps to <undefined>
+2026-03-18 13:51:08,936 - Orchestrator - INFO - Processing item: FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:51:08,936 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:51:08,937 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:51:08,938 - Orchestrator - INFO - Created plan file: PLAN_20260318_135108_FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:51:08,939 - Orchestrator - ERROR - Error processing with Qwen: 'charmap' codec can't encode character '\U0001f916' in position 0: character maps to <undefined>
+2026-03-18 13:51:38,942 - Orchestrator - INFO - Processing item: FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:51:38,942 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:51:38,942 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:51:38,944 - Orchestrator - INFO - Created plan file: PLAN_20260318_135138_FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:51:38,945 - Orchestrator - ERROR - Error processing with Qwen: 'charmap' codec can't encode character '\U0001f916' in position 0: character maps to <undefined>
+2026-03-18 13:52:08,955 - Orchestrator - INFO - Processing item: FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:52:08,958 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:52:08,959 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:52:08,963 - Orchestrator - INFO - Created plan file: PLAN_20260318_135208_FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:52:08,964 - Orchestrator - ERROR - Error processing with Qwen: 'charmap' codec can't encode character '\U0001f916' in position 0: character maps to <undefined>
+2026-03-18 13:52:38,971 - Orchestrator - INFO - Processing item: FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:52:38,971 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:52:38,972 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:52:38,973 - Orchestrator - INFO - Created plan file: PLAN_20260318_135238_FILE_20260318_134831_terminal_output_test.md
+2026-03-18 13:52:38,973 - Orchestrator - ERROR - Error processing with Qwen: 'charmap' codec can't encode character '\U0001f916' in position 0: character maps to <undefined>
+2026-03-18 13:52:59,623 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:52:59,623 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:52:59,623 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:52:59,625 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:53:06,567 - FilesystemWatcher - INFO - Created action file: FILE_20260318_135306_test_output.md
+2026-03-18 13:56:38,526 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:56:38,527 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:56:38,527 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:56:38,530 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:58:43,790 - Orchestrator - INFO - ==================================================
+2026-03-18 13:58:43,790 - Orchestrator - INFO - AI Employee Orchestrator Starting
+2026-03-18 13:58:43,790 - Orchestrator - INFO - Vault: ..
+2026-03-18 13:58:43,790 - Orchestrator - INFO - Check interval: 30s
+2026-03-18 13:58:43,790 - Orchestrator - INFO - ==================================================
+2026-03-18 13:58:43,793 - Orchestrator - INFO - Processing item: FILE_20260318_135306_test_output.md
+2026-03-18 13:58:43,794 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:58:43,794 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:58:43,797 - Orchestrator - INFO - Created plan file: PLAN_20260318_135843_FILE_20260318_135306_test_output.md
+2026-03-18 13:59:00,980 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_135306_test_output.md
+2026-03-18 13:59:00,981 - Orchestrator - INFO - Updated plan status: PLAN_20260318_135843_FILE_20260318_135306_test_output.md
+2026-03-18 13:59:00,982 - Orchestrator - INFO - Moved to Done: FILE_20260318_135306_test_output.md
+2026-03-18 13:59:01,939 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:59:01,939 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 13:59:01,940 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 13:59:01,944 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 13:59:09,046 - FilesystemWatcher - INFO - Created action file: FILE_20260318_135909_hello.md
+2026-03-18 13:59:30,988 - Orchestrator - INFO - Processing item: FILE_20260318_135909_hello.md
+2026-03-18 13:59:30,989 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 13:59:30,989 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 13:59:30,992 - Orchestrator - INFO - Created plan file: PLAN_20260318_135930_FILE_20260318_135909_hello.md
+2026-03-18 13:59:40,933 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_135909_hello.md
+2026-03-18 13:59:40,935 - Orchestrator - INFO - Updated plan status: PLAN_20260318_135930_FILE_20260318_135909_hello.md
+2026-03-18 13:59:40,936 - Orchestrator - INFO - Moved to Done: FILE_20260318_135909_hello.md
+2026-03-18 14:06:03,785 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 14:06:03,785 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 14:06:03,786 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 14:06:03,788 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 14:06:16,996 - Orchestrator - INFO - ==================================================
+2026-03-18 14:06:16,996 - Orchestrator - INFO - AI Employee Orchestrator Starting
+2026-03-18 14:06:16,997 - Orchestrator - INFO - Vault: ..
+2026-03-18 14:06:16,997 - Orchestrator - INFO - Check interval: 30s
+2026-03-18 14:06:16,997 - Orchestrator - INFO - ==================================================
+2026-03-18 14:06:40,194 - FilesystemWatcher - INFO - Created action file: FILE_20260318_140640_test.md
+2026-03-18 14:06:40,195 - FilesystemWatcher - INFO - Created action file: FILE_20260318_140640_test.md
+2026-03-18 14:06:41,019 - Orchestrator - INFO - Processing item: FILE_20260318_140640_test.md
+2026-03-18 14:06:41,020 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 14:06:41,020 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 14:06:41,022 - Orchestrator - INFO - Created plan file: PLAN_20260318_140641_FILE_20260318_140640_test.md
+2026-03-18 14:06:47,005 - Orchestrator - INFO - Processing item: FILE_20260318_140640_test.md
+2026-03-18 14:06:47,006 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 14:06:47,007 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 14:06:47,009 - Orchestrator - INFO - Created plan file: PLAN_20260318_140647_FILE_20260318_140640_test.md
+2026-03-18 14:06:51,205 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_140640_test.md
+2026-03-18 14:06:51,206 - Orchestrator - INFO - Updated plan status: PLAN_20260318_140641_FILE_20260318_140640_test.md
+2026-03-18 14:06:51,207 - Orchestrator - INFO - Moved to Done: FILE_20260318_140640_test.md
+2026-03-18 14:07:11,142 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_140640_test.md
+2026-03-18 14:07:11,145 - Orchestrator - INFO - Updated plan status: PLAN_20260318_140647_FILE_20260318_140640_test.md
+2026-03-18 14:07:11,149 - Orchestrator - ERROR - Error moving file to Done: [WinError 2] The system cannot find the file specified: '..\\Needs_Action\\FILE_20260318_140640_test.md' -> '..\\Done\\FILE_20260318_140640_test.md'
+2026-03-18 14:10:50,451 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 14:10:50,452 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 14:10:50,452 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 14:10:50,454 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 14:10:56,523 - FilesystemWatcher - INFO - Created action file: FILE_20260318_141056_agentic_test.md
+2026-03-18 14:14:27,611 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 14:14:27,611 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 14:14:27,611 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 14:14:27,613 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 14:14:34,288 - FilesystemWatcher - INFO - Created action file: FILE_20260318_141434_fresh.md
+2026-03-18 14:18:37,243 - Orchestrator - INFO - ==================================================
+2026-03-18 14:18:37,244 - Orchestrator - INFO - AI Employee Orchestrator Starting
+2026-03-18 14:18:37,244 - Orchestrator - INFO - Vault: ..
+2026-03-18 14:18:37,244 - Orchestrator - INFO - Check interval: 30s
+2026-03-18 14:18:37,244 - Orchestrator - INFO - ==================================================
+2026-03-18 14:18:37,247 - Orchestrator - INFO - Processing item: FILE_20260318_141056_agentic_test.md
+2026-03-18 14:18:37,248 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 14:18:37,248 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 14:18:37,250 - Orchestrator - INFO - Created plan file: PLAN_20260318_141837_FILE_20260318_141056_agentic_test.md
+2026-03-18 14:19:09,050 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_141056_agentic_test.md
+2026-03-18 14:19:09,052 - Orchestrator - INFO - Updated plan status: PLAN_20260318_141837_FILE_20260318_141056_agentic_test.md
+2026-03-18 14:19:09,053 - Orchestrator - INFO - Moved to Done: FILE_20260318_141056_agentic_test.md
+2026-03-18 14:19:39,063 - Orchestrator - INFO - Processing item: FILE_20260318_141434_fresh.md
+2026-03-18 14:19:39,064 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 14:19:39,064 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 14:19:39,066 - Orchestrator - INFO - Created plan file: PLAN_20260318_141939_FILE_20260318_141434_fresh.md
+2026-03-18 14:20:06,237 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_141434_fresh.md
+2026-03-18 14:20:06,239 - Orchestrator - INFO - Updated plan status: PLAN_20260318_141939_FILE_20260318_141434_fresh.md
+2026-03-18 14:20:06,240 - Orchestrator - INFO - Moved to Done: FILE_20260318_141434_fresh.md
+2026-03-18 14:22:37,368 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 14:22:37,368 - FilesystemWatcher - INFO - Starting FilesystemWatcher with real-time monitoring
+2026-03-18 14:22:37,369 - FilesystemWatcher - INFO - Drop folder: ..\Inbox
+2026-03-18 14:22:37,371 - FilesystemWatcher - INFO - Watching for new files in ..\Inbox
+2026-03-18 14:22:43,567 - Orchestrator - INFO - ==================================================
+2026-03-18 14:22:43,568 - Orchestrator - INFO - AI Employee Orchestrator Starting
+2026-03-18 14:22:43,569 - Orchestrator - INFO - Vault: ..
+2026-03-18 14:22:43,569 - Orchestrator - INFO - Check interval: 30s
+2026-03-18 14:22:43,570 - Orchestrator - INFO - ==================================================
+2026-03-18 14:22:49,996 - FilesystemWatcher - INFO - Created action file: FILE_20260318_142249_agentic_test.md
+2026-03-18 14:22:49,997 - FilesystemWatcher - INFO - Created action file: FILE_20260318_142249_agentic_test.md
+2026-03-18 14:23:06,274 - Orchestrator - INFO - Processing item: FILE_20260318_142249_agentic_test.md
+2026-03-18 14:23:06,276 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 14:23:06,277 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 14:23:06,283 - Orchestrator - INFO - Created plan file: PLAN_20260318_142306_FILE_20260318_142249_agentic_test.md
+2026-03-18 14:23:13,578 - Orchestrator - INFO - Processing item: FILE_20260318_142249_agentic_test.md
+2026-03-18 14:23:13,579 - Orchestrator - INFO - Task complexity: {'is_complex': True, 'steps_detected': ['checkbox_items', 'keyword:create plan'], 'question_count': 0, 'estimated_steps': 2}
+2026-03-18 14:23:13,580 - Orchestrator - INFO - Task is complex, creating Plan.md
+2026-03-18 14:23:13,581 - Orchestrator - INFO - Created plan file: PLAN_20260318_142313_FILE_20260318_142249_agentic_test.md
+2026-03-18 14:23:27,285 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_142249_agentic_test.md
+2026-03-18 14:23:27,286 - Orchestrator - INFO - Updated plan status: PLAN_20260318_142306_FILE_20260318_142249_agentic_test.md
+2026-03-18 14:23:27,287 - Orchestrator - INFO - Moved to Done: FILE_20260318_142249_agentic_test.md
+2026-03-18 14:23:52,129 - Orchestrator - INFO - Qwen Code completed processing: FILE_20260318_142249_agentic_test.md
+2026-03-18 14:23:52,137 - Orchestrator - INFO - Updated plan status: PLAN_20260318_142313_FILE_20260318_142249_agentic_test.md
+2026-03-18 14:23:52,140 - Orchestrator - INFO - File already in Done: FILE_20260318_142249_agentic_test.md
+2026-03-18 14:54:53,033 - Orchestrator - INFO - Orchestrator stopped by user
+2026-03-18 14:54:53,037 - Orchestrator - INFO - Orchestrator shutdown complete
+2026-03-18 14:54:59,037 - FilesystemWatcher - INFO - Stopping watcher...
+2026-03-18 14:54:59,045 - FilesystemWatcher - INFO - FilesystemWatcher stopped
