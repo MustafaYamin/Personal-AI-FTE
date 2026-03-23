@@ -1,6 +1,8 @@
-# AI Employee Vault - Bronze Tier
+# AI Employee Vault - Silver Tier
 
 A local-first, agent-driven personal automation system powered by Qwen Code and Obsidian.
+
+**Status: Silver Tier Complete ✅**
 
 ## Quick Start
 
@@ -9,14 +11,16 @@ A local-first, agent-driven personal automation system powered by Qwen Code and 
 1. **Qwen Code** - Ensure Qwen Code CLI is installed and configured
 2. **Python 3.13+** - Download from python.org
 3. **Obsidian** - Download from obsidian.md
+4. **Node.js** - Download from nodejs.org (for MCP servers)
 
 ### Installation
 
 1. **Install Python dependencies:**
 
 ```bash
-cd AI_Employee_Vault/src
+cd AI_Employee_Vault\src
 pip install -r requirements.txt
+playwright install chromium
 ```
 
 2. **Verify Qwen Code:**
@@ -32,37 +36,65 @@ qwen --version
 
 ### Running the System
 
-**Terminal 1 - Start the File Watcher:**
+#### Option 1: Start All Watchers (Recommended)
+
+```batch
+cd AI_Employee_Vault\src\scheduler
+start_all_watchers.bat ..
+```
+
+This starts all watchers and the orchestrator in separate windows.
+
+#### Option 2: Individual Components
+
+**Terminal 1 - Filesystem Watcher:**
 
 ```bash
-cd AI_Employee_Vault/src
+cd AI_Employee_Vault\src
 python filesystem_watcher.py ..
 ```
 
-This watches the `Inbox` folder for new files.
-
-**Terminal 2 - Start the Orchestrator:**
+**Terminal 2 - Gmail Watcher (requires credentials):**
 
 ```bash
-cd AI_Employee_Vault/src
+cd AI_Employee_Vault\src
+python gmail_watcher.py .. ..\.cache\gmail_credentials.json
+```
+
+**Terminal 3 - WhatsApp Watcher:**
+
+```bash
+cd AI_Employee_Vault\src
+python whatsapp_watcher.py ..
+```
+
+**Terminal 4 - Orchestrator:**
+
+```bash
+cd AI_Employee_Vault\src
 python orchestrator.py ..
 ```
 
-This processes items and triggers Qwen Code.
+### Automatic Startup (Windows Task Scheduler)
+
+```powershell
+# Run as Administrator
+cd AI_Employee_Vault\src\scheduler
+.\register_task_scheduler.ps1
+```
 
 ## Where to See Qwen Code's Output
 
-**Qwen Code's response appears in Terminal 2 (the orchestrator terminal).**
+**Qwen Code's response appears in the Orchestrator terminal.**
 
-When a task is processed, you'll see the output directly in the terminal:
+When a task is processed, you'll see:
 
 ```
 ============================================================
 [AI] QWEN CODE PROCESSING: FILE_20260318_xxx.md
 ============================================================
 
-[Qwen Code's response/answer appears here - this is where
- you'll see the AI's answer to your question/task]
+[Qwen Code's response/answer appears here]
 
 ============================================================
 [OK] QWEN CODE COMPLETED: FILE_20260318_xxx.md
@@ -71,23 +103,43 @@ When a task is processed, you'll see the output directly in the terminal:
 [DONE] File moved to: Done/FILE_20260318_xxx.md
 ```
 
-**Tip:** Keep Terminal 2 visible to watch the AI's responses in real-time!
+## Watchers
 
-### Testing the Workflow
+### Filesystem Watcher
 
-1. **Drop a test file** in the `Inbox` folder:
-   ```
-   AI_Employee_Vault/Inbox/test_task.txt
-   ```
+Monitors `Inbox/` folder for new files.
 
-2. **Watch the magic happen:**
-   - Filesystem Watcher detects the file
-   - Creates an action file in `Needs_Action/`
-   - Orchestrator triggers Qwen Code
-   - Qwen processes the task and creates a plan
-   - File moves to `Done/` when complete
+```bash
+python filesystem_watcher.py /path/to/vault
+```
 
-3. **Check the Dashboard.md** in Obsidian for status updates
+### Gmail Watcher
+
+Monitors Gmail for unread messages.
+
+```bash
+python gmail_watcher.py /path/to/vault /path/to/credentials.json
+```
+
+**Setup:**
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create project → Enable Gmail API
+3. Create OAuth2 credentials (Desktop app)
+4. Download `credentials.json`
+5. Place in `AI_Employee_Vault\.cache\gmail_credentials.json`
+
+### WhatsApp Watcher
+
+Monitors WhatsApp Web for priority messages.
+
+```bash
+python whatsapp_watcher.py /path/to/vault [session_path]
+```
+
+**Setup:**
+1. First run requires QR code scan with WhatsApp mobile app
+2. Session saved for future runs
+3. Keywords: urgent, asap, invoice, payment, help, emergency, etc.
 
 ## Folder Structure
 
@@ -103,14 +155,106 @@ AI_Employee_Vault/
 ├── Rejected/             # Declined items
 ├── Done/                 # Completed tasks
 ├── Logs/                 # Activity logs
-├── Briefings/            # CEO briefings (future)
-├── Accounting/           # Financial records (future)
+├── Briefings/            # CEO briefings
+├── Accounting/           # Financial records
 └── src/                  # Python source code
     ├── base_watcher.py
     ├── filesystem_watcher.py
+    ├── gmail_watcher.py
+    ├── whatsapp_watcher.py
     ├── orchestrator.py
-    └── requirements.txt
+    ├── requirements.txt
+    ├── mcp_servers/
+    │   ├── __init__.py
+    │   └── email_mcp_server.py
+    └── scheduler/
+        ├── start_all_watchers.bat
+        ├── stop_all_watchers.bat
+        ├── register_task_scheduler.ps1
+        └── unregister_task_scheduler.ps1
 ```
+
+## Silver Tier Features
+
+### Multiple Watchers
+
+| Watcher | Purpose | Check Interval |
+|---------|---------|----------------|
+| Filesystem | Inbox folder monitoring | 5 seconds |
+| Gmail | New email detection | 2 minutes |
+| WhatsApp | Priority message detection | 30 seconds |
+
+### Human-in-the-Loop (HITL) Workflow
+
+```
+1. Qwen detects sensitive action needed
+2. Creates approval request in Pending_Approval/
+3. Human reviews and moves to Approved/
+4. Orchestrator executes the action
+5. File moved to Done/ with execution log
+```
+
+### MCP Servers
+
+| Server | Capabilities | Transport |
+|--------|--------------|-----------|
+| Email MCP | Send, draft, search emails | stdio |
+| Playwright MCP | Browser automation | HTTP |
+
+### Task Scheduler Integration
+
+- Automatic startup at logon
+- Automatic startup at system boot
+- Manual start/stop scripts
+
+## Testing the Workflow
+
+### Test 1: File Drop
+
+1. **Drop a test file** in the `Inbox` folder:
+   ```
+   AI_Employee_Vault\Inbox\test_task.txt
+   ```
+
+2. **Watch the magic happen:**
+   - Filesystem Watcher detects the file
+   - Creates an action file in `Needs_Action/`
+   - Orchestrator triggers Qwen Code
+   - Qwen processes the task
+   - File moves to `Done/` when complete
+
+3. **Check the Dashboard.md** in Obsidian for status updates
+
+### Test 2: Email Approval Workflow
+
+1. **Create a test email task:**
+   ```markdown
+   ---
+   type: email
+   from: test@example.com
+   subject: Test Email
+   received: 2026-03-23T10:00:00Z
+   status: pending
+   ---
+
+   # Test Email
+
+   Please reply to this email with a test message.
+
+   ## Suggested Actions
+   - [ ] Draft reply
+   - [ ] Create approval request
+   - [ ] Move to Done when complete
+   ```
+
+2. **Place in `Needs_Action/` folder**
+
+3. **Orchestrator will:**
+   - Trigger Qwen Code
+   - Qwen creates approval request in `Pending_Approval/`
+   - Human moves file to `Approved/`
+   - Orchestrator executes and logs action
+   - File moves to `Done/`
 
 ## Configuration
 
@@ -121,6 +265,7 @@ Edit `Company_Handbook.md` to set your rules:
 - Communication guidelines
 - Working hours
 - Escalation rules
+- Email tone and style
 
 ### Adjust Check Intervals
 
@@ -128,114 +273,145 @@ Edit `Company_Handbook.md` to set your rules:
 # Filesystem watcher (default: 5 seconds)
 python filesystem_watcher.py .. --interval 10
 
+# Gmail watcher (default: 120 seconds)
+python gmail_watcher.py .. credentials.json --interval 300
+
+# WhatsApp watcher (default: 30 seconds)
+python whatsapp_watcher.py .. --interval 60
+
 # Orchestrator (default: 30 seconds)
 python orchestrator.py .. --interval 60
 ```
 
-## Bronze Tier Deliverables (COMPLETE ✅)
+## Silver Tier Deliverables (COMPLETE ✅)
 
 ### Core Requirements
-- ✅ Obsidian vault with Dashboard.md and Company_Handbook.md
-- ✅ One working Watcher script (Filesystem Watcher)
-- ✅ Qwen Code integration for processing
-- ✅ Basic folder structure: /Inbox, /Needs_Action, /Done, /Plans, /Pending_Approval, /Approved, /Rejected, /Logs
+- ✅ All Bronze requirements
+- ✅ Two or more Watcher scripts (Filesystem + Gmail + WhatsApp)
+- ✅ Plan.md generation with Qwen reasoning
+- ✅ One working MCP server (Email MCP)
+- ✅ Human-in-the-Loop approval workflow
+- ✅ Basic scheduling via Windows Task Scheduler
 
 ### Additional Features Implemented
-- ✅ **Qwen Code Skill** (`.qwen/skills/ai-employee-bronze/`) - Documented skill for AI Employee processing
-- ✅ **Plan.md Generation** - Automatic plan creation for complex tasks (3+ steps)
-- ✅ **Task Complexity Analysis** - Orchestrator analyzes tasks and creates plans when needed
-- ✅ **Processing Logs** - All actions logged to `/Logs/YYYY-MM-DD.md`
-- ✅ **Human-in-the-Loop Structure** - Approval workflow folders ready for Silver tier
+- ✅ **Email MCP Server** - Send, draft, search emails via Gmail API
+- ✅ **Gmail Watcher** - OAuth2 authenticated email monitoring
+- ✅ **WhatsApp Watcher** - Playwright-based message monitoring
+- ✅ **HITL Execution Logic** - Orchestrator executes approved actions
+- ✅ **Task Scheduler Scripts** - Windows automation
+- ✅ **Qwen Code Skill** (`.qwen/skills/ai-employee-silver/`) - Documented skill
+- ✅ **Execution Logging** - All actions logged with details
 
 ## How It Works
 
 ```
-1. Drop file in Inbox/
-       ↓
-2. Filesystem Watcher detects → Creates action file in Needs_Action/
-       ↓
-3. Orchestrator analyzes complexity
-       ↓
-   ┌─────────────┬─────────────┐
-   │  Simple     │   Complex   │
-   │  (1-2 steps)│  (3+ steps) │
-   └──────┬──────┴──────┬──────┘
-          │             │
-          ↓             ↓
-   Direct processing  Create Plan.md
-          │             │
-          └──────┬──────┘
-                 ↓
-   4. Qwen Code processes task
-                 ↓
-   5. File moved to Done/
-   6. Plan status updated (if created)
-   7. Log entry created
-```
-
-## Example Log Output
-
-```
-2026-03-18 11:30:50 - Created action file: FILE_20260318_113050_test_live.md
-2026-03-18 11:31:06 - Task complexity: {'is_complex': True, ...}
-2026-03-18 11:31:06 - Task is complex, creating Plan.md
-2026-03-18 11:31:06 - Created plan file: PLAN_...md
-2026-03-18 11:31:31 - Qwen Code completed processing
-2026-03-18 11:31:31 - Updated plan status: completed
-2026-03-18 11:31:31 - Moved to Done: FILE_...md
+┌─────────────────────────────────────────────────────────────┐
+│                      WATCHERS LAYER                         │
+├─────────────────┬─────────────────┬─────────────────────────┤
+│   Filesystem    │      Gmail      │       WhatsApp          │
+│   (Inbox/)      │   (Gmail API)   │   (Playwright + Web)    │
+└────────┬────────┴────────┬────────┴──────────┬──────────────┘
+         │                 │                   │
+         └─────────────────┼───────────────────┘
+                           │
+                           ↓
+              ┌────────────────────────┐
+              │   Needs_Action/ Folder │
+              └───────────┬────────────┘
+                          │
+                          ↓
+              ┌────────────────────────┐
+              │     Orchestrator       │
+              │  (Analyzes Complexity) │
+              └───────────┬────────────┘
+                          │
+          ┌───────────────┼───────────────┐
+          │               │               │
+          ↓               ↓               ↓
+   ┌──────────┐   ┌──────────┐   ┌──────────────┐
+   │ Simple   │   │ Complex  │   │  Sensitive   │
+   │(1-2 steps)│   │(3+ steps)│   │  (Approval)  │
+   └────┬─────┘   └────┬─────┘   └──────┬───────┘
+        │              │                │
+        ↓              ↓                ↓
+   Direct Qwen   Create Plan.md   Pending_Approval/
+   Processing    in Plans/              │
+        │              │                │
+        │              │                ↓
+        │              │         Human Review
+        │              │                │
+        │              │         ┌──────┴──────┐
+        │              │         │  Approved/  │
+        │              │         └──────┬──────┘
+        │              │                │
+        └──────────────┴────────────────┘
+                       │
+                       ↓
+              ┌────────────────┐
+              │  Execute Action │
+              │  (MCP Server)   │
+              └────────┬────────┘
+                       │
+                       ↓
+              ┌────────────────┐
+              │  Move to Done/ │
+              │  Update Logs   │
+              └────────────────┘
 ```
 
 ## Troubleshooting
 
 ### Qwen Code not found
-Ensure Qwen Code CLI is installed and in your PATH. Run:
+Ensure Qwen Code CLI is installed and in your PATH:
 ```bash
 qwen --version
 ```
 
-### Python module not found
+### Python dependencies not found
 ```bash
-pip install watchdog
+cd AI_Employee_Vault\src
+pip install -r requirements.txt
+playwright install chromium
 ```
 
-### Watcher not detecting files
-- Ensure the Inbox folder path is correct
-- Check file permissions
-- Verify the watcher process is running
-- Check logs in `Logs/YYYY-MM-DD.log`
+### Gmail Watcher authentication fails
+1. Delete existing token: `.cache\gmail_token.pickle`
+2. Re-run Gmail Watcher manually
+3. Check credentials.json is valid
+
+### WhatsApp Watcher shows QR code
+1. First run requires QR code scan
+2. Run manually: `python whatsapp_watcher.py ..`
+3. Scan QR with WhatsApp mobile app
+4. Session saved for future runs
 
 ### Orchestrator not processing
 - Check logs in `Logs/` folder
-- Verify Qwen Code is configured: `qwen --version`
+- Verify Qwen Code is configured
 - Ensure items are in `Needs_Action/` folder
 - Check if Qwen Code process timed out (default: 300 seconds)
 
-### Plan.md not created for complex task
-- Task complexity is determined by:
-  - Multiple checkbox items (`[ ]`)
-  - Multiple questions (`?`)
-  - Complex keywords (research, analyze, compare, etc.)
-- Check orchestrator logs for complexity analysis
-
-### File stuck in Needs_Action/
-- Check Qwen Code output in logs
-- Task may require approval (check `Pending_Approval/`)
-- Qwen Code may have encountered an error
-
-## Next Steps (Silver Tier)
-
-- Add Gmail Watcher
-- Add WhatsApp Watcher
-- Implement MCP servers for external actions
-- Create human-in-the-loop approval workflow
-- Add scheduling via cron/Task Scheduler
+### Task Scheduler not starting
+1. Open Task Scheduler (taskschd.msc)
+2. Navigate to: Task Scheduler Library → AI-Employee
+3. Check task history for errors
+4. Verify Python is in PATH
 
 ## Security Notes
 
-- Never commit `.env` files with credentials
+- Never commit `.cache` folder with credentials
 - Keep your vault private (use .gitignore)
 - Review all actions in Logs regularly
 - Start with DRY_RUN mode for testing
+- Never share `credentials.json` or token files
+
+## Next Steps (Gold Tier)
+
+- Odoo accounting integration
+- Social media posting (LinkedIn, Twitter, Facebook)
+- Ralph Wiggum loop for autonomous multi-step completion
+- Weekly CEO Briefing generation
+- Comprehensive audit logging
 
 ## License
 

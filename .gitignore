@@ -1,0 +1,313 @@
+# =============================================================================
+# Personal AI FTE - .gitignore
+# =============================================================================
+# This file ensures sensitive credentials and temporary files are never
+# committed to GitHub. DO NOT REMOVE OR MODIFY THESE RULES!
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 🔒 CRITICAL: AI Employee Secrets (NEVER COMMIT THESE)
+# -----------------------------------------------------------------------------
+
+# Gmail API credentials and OAuth tokens
+.cache/
+gmail_credentials.json
+gmail_token.pickle
+*.pickle
+
+# WhatsApp session data
+whatsapp_session/
+**/whatsapp_session/**
+
+# Any credential files
+*.credentials
+*.secret
+credentials.json
+
+# Environment files with API keys
+.env
+.env.local
+.env.*.local
+
+# -----------------------------------------------------------------------------
+# 📝 Logs and Activity Data (May Contain Sensitive Information)
+# -----------------------------------------------------------------------------
+
+# Application logs (may contain email content, personal data)
+AI_Employee_Vault/Logs/
+**/Logs/*.log
+**/Logs/*.md
+*.log
+
+# Processed file tracking (local state only)
+filesystem_processed.txt
+gmail_processed.txt
+whatsapp_processed.txt
+
+# -----------------------------------------------------------------------------
+# 🐍 Python
+# -----------------------------------------------------------------------------
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C extensions
+*.c
+*.cpp
+*.obj
+*.o
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# -----------------------------------------------------------------------------
+# 💻 Operating System Files
+# -----------------------------------------------------------------------------
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+
+# -----------------------------------------------------------------------------
+# 📝 Editor and IDE
+# -----------------------------------------------------------------------------
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.project
+.classpath
+.settings/
+.loadpath
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+
+# -----------------------------------------------------------------------------
+# 📊 Obsidian Vault (Selective)
+# -----------------------------------------------------------------------------
+
+# Obsidian core settings (personal preferences)
+AI_Employee_Vault/.obsidian/app.json
+AI_Employee_Vault/.obsidian/appearance.json
+AI_Employee_Vault/.obsidian/core-plugins.json
+AI_Employee_Vault/.obsidian/workspace.json
+AI_Employee_Vault/.obsidian/workspace-mobile.json
+AI_Employee_Vault/.obsidian/graph.json
+AI_Employee_Vault/.obsidian/starred.json
+AI_Employee_Vault/.obsidian/bookmarks.json
+AI_Employee_Vault/.obsidian/plugins/
+AI_Employee_Vault/.obsidian/themes/
+AI_Employee_Vault/.obsidian/snippets/
+
+# Obsidian community plugins (keep config, not plugin code)
+AI_Employee_Vault/.obsidian/community-plugins.json
+AI_Employee_Vault/.obsidian/hotkeys.json
+
+# -----------------------------------------------------------------------------
+# 📁 AI Employee Vault - Working Folders (Local State)
+# -----------------------------------------------------------------------------
+
+# Active working folders (content changes frequently, may contain sensitive data)
+AI_Employee_Vault/Inbox/
+AI_Employee_Vault/Needs_Action/
+AI_Employee_Vault/In_Progress/
+AI_Employee_Vault/Pending_Approval/
+AI_Employee_Vault/Approved/
+AI_Employee_Vault/Rejected/
+
+# Keep these folders tracked but ignore their content:
+# - Done/ (completed tasks - can be committed if not sensitive)
+# - Plans/ (action plans - can be committed if not sensitive)
+# - Briefings/ (CEO briefings - can be committed if not sensitive)
+# - Accounting/ (financial data - SHOULD NOT be committed)
+# - Invoices/ (invoices - SHOULD NOT be committed)
+
+# -----------------------------------------------------------------------------
+# 🔧 Build and Development
+# -----------------------------------------------------------------------------
+
+# Node.js (if using MCP servers)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# TypeScript
+*.tsbuildinfo
+
+# -----------------------------------------------------------------------------
+# 📦 Git and Version Control
+# -----------------------------------------------------------------------------
+
+# Git files (keep these!)
+!.gitignore
+!.gitattributes
+!.gitmodules
+
+# Qwen Code skills (safe to commit)
+.qwen/
+skills-lock.json
+
+# -----------------------------------------------------------------------------
+# ✅ Files That SHOULD Be Committed (Explicitly Included)
+# -----------------------------------------------------------------------------
+
+# Source code
+*.py
+!__pycache__/
+
+# Documentation
+*.md
+README*
+LICENSE
+CHANGELOG
+
+# Scripts
+*.bat
+*.ps1
+*.sh
+
+# Configuration (non-sensitive)
+requirements.txt
+package.json
+tsconfig.json
+
+# Obsidian vault structure (not content)
+AI_Employee_Vault/README.md
+AI_Employee_Vault/Company_Handbook.md
+AI_Employee_Vault/Dashboard.md
+AI_Employee_Vault/TESTING_GUIDE.md
+AI_Employee_Vault/src/README.md
+AI_Employee_Vault/src/scheduler/README.md
+AI_Employee_Vault/src/EMAIL_APPROVAL_WORKFLOW.md
+
+# =============================================================================
+# End of .gitignore
+# =============================================================================

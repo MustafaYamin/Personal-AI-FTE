@@ -10,6 +10,11 @@
       "source": "local",
       "sourceType": "local",
       "computedHash": "local-skill"
+    },
+    "ai-employee-silver": {
+      "source": "local",
+      "sourceType": "local",
+      "computedHash": "local-skill"
     }
   }
 }

@@ -1,11 +1,55 @@
 # AI Employee - Python Dependencies
-# Bronze Tier Requirements
+# Silver Tier Requirements
+
+# ===================================================================
+# Core Dependencies (Bronze Tier)
+# ===================================================================
 
 # File system watching (real-time monitoring)
 watchdog>=4.0.0
 
-# For future tiers (Gmail, WhatsApp, etc.)
-# google-api-python-client>=2.0.0  # Gmail API
-# google-auth-httplib2>=0.1.0     # Gmail Auth
-# google-auth-oauthlib>=1.0.0     # Gmail OAuth
-# playwright>=1.40.0              # WhatsApp Web automation
+# ===================================================================
+# Gmail Watcher Dependencies (Silver Tier)
+# ===================================================================
+
+# Gmail API client
+google-api-python-client>=2.108.0
+
+# Gmail OAuth2 authentication
+google-auth-httplib2>=0.1.0
+google-auth-oauthlib>=1.0.0
+
+# ===================================================================
+# WhatsApp Watcher Dependencies (Silver Tier)
+# ===================================================================
+
+# Browser automation for WhatsApp Web
+playwright>=1.40.0
+
+# After installing, run: playwright install chromium
+# ===================================================================
+
+# ===================================================================
+# MCP Server Dependencies (Silver Tier)
+# ===================================================================
+
+# MCP servers use the same Google API dependencies
+# No additional dependencies needed for email_mcp_server
+
+# ===================================================================
+# Installation Instructions
+# ===================================================================
+#
+# 1. Install all dependencies:
+#    pip install -r requirements.txt
+#
+# 2. Install Playwright browsers:
+#    playwright install chromium
+#
+# 3. Setup Gmail credentials:
+#    - Go to https://console.cloud.google.com/
+#    - Create project and enable Gmail API
+#    - Download credentials.json (Desktop app OAuth2)
+#    - Place in AI_Employee_Vault/.cache/gmail_credentials.json
+#
+# ===================================================================

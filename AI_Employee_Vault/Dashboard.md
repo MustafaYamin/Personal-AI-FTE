@@ -10,7 +10,7 @@ status: active
 | Metric | Value |
 |--------|-------|
 | Pending Tasks | 1 |
-| Awaiting Approval | 0 |
+| Awaiting Approval | 1 |
 | Completed Today | 1 |
 | Revenue MTD | $0 |
 
