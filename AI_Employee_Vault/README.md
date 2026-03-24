@@ -4,14 +4,18 @@ A local-first, agent-driven personal automation system powered by Qwen Code and 
 
 **Status: Silver Tier Complete ✅**
 
+> **Tagline:** Your life and business on autopilot. Local-first, agent-driven, human-in-the-loop.
+
 ## Quick Start
 
 ### Prerequisites
 
-1. **Qwen Code** - Ensure Qwen Code CLI is installed and configured
-2. **Python 3.13+** - Download from python.org
-3. **Obsidian** - Download from obsidian.md
-4. **Node.js** - Download from nodejs.org (for MCP servers)
+| Component | Version | Purpose |
+|-----------|---------|---------|
+| **Qwen Code** | Latest | Primary reasoning engine |
+| **Python** | 3.13+ | Watcher scripts & orchestration |
+| **Obsidian** | v1.10.6+ | Knowledge base & dashboard |
+| **Node.js** | v24+ LTS | MCP servers |
 
 ### Installation
 
@@ -29,7 +33,14 @@ playwright install chromium
 qwen --version
 ```
 
-3. **Open the vault in Obsidian:**
+3. **Run System Diagnostics (Recommended):**
+
+```bash
+cd AI_Employee_Vault\src
+python test_system.py
+```
+
+4. **Open the vault in Obsidian:**
    - Launch Obsidian
    - Click "Open folder as vault"
    - Select the `AI_Employee_Vault` folder
@@ -201,13 +212,51 @@ AI_Employee_Vault/
 | Email MCP | Send, draft, search emails | stdio |
 | Playwright MCP | Browser automation | HTTP |
 
+**Using Playwright MCP:**
+
+```bash
+# Start the server
+bash ../.qwen/skills/browsing-with-playwright/scripts/start-server.sh
+
+# List available tools
+python ../.qwen/skills/browsing-with-playwright/scripts/mcp-client.py list -u http://localhost:8808
+
+# Navigate to a website
+python ../.qwen/skills/browsing-with-playwright/scripts/mcp-client.py call \
+  -u http://localhost:8808 \
+  -t browser_navigate \
+  -p '{"url": "https://example.com"}'
+
+# Stop the server
+bash ../.qwen/skills/browsing-with-playwright/scripts/stop-server.sh
+```
+
+See [Playwright MCP Skill](../.qwen/skills/browsing-with-playwright/SKILL.md) for complete documentation.
+
 ### Task Scheduler Integration
 
 - Automatic startup at logon
 - Automatic startup at system boot
 - Manual start/stop scripts
 
-## Testing the Workflow
+See [Scheduler README](src/scheduler/README.md) for detailed instructions.
+
+## Testing the System
+
+### Run Diagnostic Tests
+
+```bash
+cd AI_Employee_Vault\src
+python test_system.py
+```
+
+This will verify:
+- Python dependencies
+- Qwen Code installation
+- Folder structure
+- Gmail authentication
+- Watcher scripts
+- Filesystem watcher functionality
 
 ### Test 1: File Drop
 
@@ -299,8 +348,20 @@ python orchestrator.py .. --interval 60
 - ✅ **WhatsApp Watcher** - Playwright-based message monitoring
 - ✅ **HITL Execution Logic** - Orchestrator executes approved actions
 - ✅ **Task Scheduler Scripts** - Windows automation
-- ✅ **Qwen Code Skill** (`.qwen/skills/ai-employee-silver/`) - Documented skill
+- ✅ **Qwen Code Skills** - Documented skills in `.qwen/skills/`
 - ✅ **Execution Logging** - All actions logged with details
+- ✅ **System Diagnostics** - test_system.py for verification
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [Main Blueprint](../Personal%20AI%20Employee%20Hackathon%200_%20Building%20Autonomous%20FTEs%20in%202026.md) | Complete architectural blueprint |
+| [Company Handbook](./Company_Handbook.md) | Rules of engagement |
+| [Scheduler README](./src/scheduler/README.md) | Task Scheduler setup |
+| [Bronze Skill](../.qwen/skills/ai-employee-bronze/SKILL.md) | Basic task processing |
+| [Silver Skill](../.qwen/skills/ai-employee-silver/SKILL.md) | Advanced workflows |
+| [Playwright MCP](../.qwen/skills/browsing-with-playwright/SKILL.md) | Browser automation |
 
 ## How It Works
 
@@ -366,6 +427,7 @@ Ensure Qwen Code CLI is installed and in your PATH:
 ```bash
 qwen --version
 ```
+If not found, install: `npm install -g @qwen-code/qwen-code`
 
 ### Python dependencies not found
 ```bash
@@ -374,10 +436,17 @@ pip install -r requirements.txt
 playwright install chromium
 ```
 
+### Run Full Diagnostics
+```bash
+cd AI_Employee_Vault\src
+python test_system.py
+```
+
 ### Gmail Watcher authentication fails
 1. Delete existing token: `.cache\gmail_token.pickle`
 2. Re-run Gmail Watcher manually
 3. Check credentials.json is valid
+4. Re-authenticate: `python authenticate_gmail.py ..\.cache\gmail_credentials.json`
 
 ### WhatsApp Watcher shows QR code
 1. First run requires QR code scan
@@ -397,22 +466,44 @@ playwright install chromium
 3. Check task history for errors
 4. Verify Python is in PATH
 
+### MCP Server Issues
+- **Playwright MCP not responding**: Run `start-server.sh` then `verify.py`
+- **Email MCP not working**: Check Gmail credentials and re-authenticate
+- **Tools not listed**: Ensure server is running before calling tools
+
+## Resources
+
+| Resource | Link |
+|----------|------|
+| Qwen Code Docs | https://platform.claude.com/docs |
+| Obsidian | https://obsidian.md |
+| Playwright | https://playwright.dev |
+| Gmail API | https://developers.google.com/gmail/api |
+| MCP Protocol | https://modelcontextprotocol.io |
+
 ## Security Notes
 
-- Never commit `.cache` folder with credentials
-- Keep your vault private (use .gitignore)
-- Review all actions in Logs regularly
-- Start with DRY_RUN mode for testing
-- Never share `credentials.json` or token files
+- 🔒 **Never commit `.cache` folder** with credentials
+- 🔒 **Keep your vault private** (use .gitignore)
+- 🔒 **Review all actions in Logs** regularly
+- 🔒 **Start with DRY_RUN mode** for testing
+- 🔒 **Never share `credentials.json`** or token files
+- 🔒 **Rotate credentials monthly** and after any suspected breach
 
 ## Next Steps (Gold Tier)
 
-- Odoo accounting integration
-- Social media posting (LinkedIn, Twitter, Facebook)
-- Ralph Wiggum loop for autonomous multi-step completion
-- Weekly CEO Briefing generation
-- Comprehensive audit logging
+| Feature | Description | Status |
+|---------|-------------|--------|
+| **Odoo Integration** | Self-hosted accounting via MCP | ⏳ Pending |
+| **Social Media** | LinkedIn, Twitter, Facebook posting | ⏳ Pending |
+| **Ralph Wiggum Loop** | Autonomous multi-step completion | ⏳ Pending |
+| **CEO Briefings** | Weekly business audit generation | ⏳ Pending |
+| **Audit Logging** | Comprehensive JSON logging | ⏳ Pending |
 
 ## License
 
 MIT License - Build your own AI Employee!
+
+---
+
+**Built with ❤️ using Qwen Code + Obsidian + Python**
