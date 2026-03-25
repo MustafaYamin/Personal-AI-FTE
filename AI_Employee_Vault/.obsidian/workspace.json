@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "5912005f1a6d3f8d",
+        "id": "e3f0107699e40072",
         "type": "tabs",
         "children": [
           {
-            "id": "64211692906386dc",
+            "id": "544a125799f364ba",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "README"
+              "title": "New tab"
             }
           }
         ]
@@ -184,12 +180,29 @@
       "bases:Create new base": false
     }
   },
-  "active": "64211692906386dc",
+  "active": "a1763c5218a0db74",
   "lastOpenFiles": [
+    "Logs/2026-03-25.md",
+    "Done/FILE_20260325_114828_france.md",
+    "Dashboard.md",
+    "Needs_Action/FILE_20260325_114828_france.md",
+    "Plans/PLAN_20260325_114837_FILE_20260325_114828_france.md",
+    "Inbox/france.txt",
+    "Needs_Action/RESPONSE_FILE_20260325_114000_test_math.md",
+    "Done/FILE_20260325_114000_test_math.md",
+    "Needs_Action/FILE_20260325_114000_test_math.md",
+    "src/simple_processor.py",
+    "Done/FILE_20260325_113500_test_france.md",
+    "Needs_Action/FILE_20260325_113500_test_france.md",
+    "Done/FILE_20260325_112500_test_germany.md",
+    "Needs_Action/FILE_20260325_112500_test_germany.md",
+    "Inbox/test_germany.txt",
+    "Done/FILE_20260325_112009_france.md",
     "USER_GUIDE.md",
+    "Plans/PLAN_20260325_112039_FILE_20260325_112009_france.md",
+    "Needs_Action/FILE_20260325_112009_france.md",
     "README.md",
     "DOCUMENTATION_SUMMARY.md",
-    "Dashboard.md",
     "START_BY_STEP.md",
     "Inbox/test_component.txt",
     "src/__pycache__/dashboard_updater.cpython-314.pyc",
@@ -204,23 +217,6 @@
     "HOW_TO_START.md",
     "TESTING_GUIDE.md",
     "SIMPLE_START_GUIDE.md",
-    "src/DASHBOARD_AUTO_UPDATE.md",
-    "Logs/dashboard_updater_2026-03-25.log",
-    "src/dashboard_updater.py",
-    "Briefings/2026-03-25_CEO_Briefing.md",
-    "src/FINAL_VERIFICATION.md",
-    "src/VERIFICATION_REPORT.md",
-    "src/ENHANCED_FEATURES.md",
-    "src/EMAIL_APPROVAL_WORKFLOW.md",
-    "Logs/audit/audit_2026-03-25.jsonl",
-    "Logs/2026-03-23.md",
-    "Done/EMAIL_20260323_093935_Hello world.md",
-    "Plans/PLAN_20260323_092045_FILE_20260323_092041_test_math_simple.md",
-    "Plans/PLAN_20260323_092057_FILE_20260323_092041_test_math_simple.md",
-    "Plans/PLAN_20260323_083749_FILE_20260323_083738_pakistan.md",
-    "Needs_Action/EMAIL_20260323_093935_Hello world.md",
-    "Done/FILE_20260323_090447_test_france_capital.md",
-    "Done/FILE_20260323_092041_test_math_simple.md",
-    "Needs_Action/FILE_20260323_092041_test_math_simple.md"
+    "src/DASHBOARD_AUTO_UPDATE.md"
   ]
 }

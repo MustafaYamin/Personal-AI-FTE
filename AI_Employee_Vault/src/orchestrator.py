@@ -278,63 +278,43 @@ To be determined based on Company Handbook rules.
             self.logger.info(f'Task is complex, creating Plan.md')
             plan_path = self.create_plan_file(item_path, complexity)
 
-        # Create prompt for Qwen Code - reference the AI Employee Bronze Skill
-        prompt = f'''You are using the AI Employee Bronze Tier Skill to process a task.
+        # Create prompt for Qwen Code - DIRECT INSTRUCTION
+        prompt = f'''You are the AI Employee Bronze Tier processor.
 
-TASK FILE: {item_path}
-COMPANY HANDBOOK: {self.vault_path / 'Company_Handbook.md'}
-DASHBOARD: {self.vault_path / 'Dashboard.md'}
-'''
+YOUR TASK: Process the file at: {item_path}
 
-        if plan_path:
-            prompt += f'PLAN FILE: {plan_path}\n\n'
-            prompt += '''A Plan.md has been created for this complex task.
+STEP 1 - READ THE TASK FILE:
+Read the file: {item_path}
+Understand what needs to be done.
 
-Your responsibilities:
-1. Read the task file and understand the requirements
-2. Read the Company Handbook for rules and guidelines
-3. Follow the steps in the Plan.md
-4. Update the Plan.md checkboxes as you complete each step
-5. Execute actions or create approval requests as needed
-6. When complete, update Dashboard.md with the activity
+STEP 2 - READ COMPANY HANDBOOK:
+Read: {self.vault_path / 'Company_Handbook.md'}
+Follow the rules and guidelines.
 
-⚠️ IMPORTANT - CREATE RESPONSE FILE:
-You MUST create a response file with your answer/output.
-File name: RESPONSE_[task_filename].md
-Location: Same folder as the task file (Needs_Action/)
+STEP 3 - CREATE RESPONSE FILE (REQUIRED):
+Create a file named: RESPONSE_{item_path.name}
+Location: Same folder as the task file
 
-Example: If task is 'Needs_Action/FILE_123.md', create 'Needs_Action/RESPONSE_FILE_123.md'
+Your response file MUST include:
+- Complete answer to the task
+- Any actions you took
+- Status of the task
 
-Use the file write tool to create this file with your complete response.
-'''
-        else:
-            prompt += '''
-Your responsibilities:
-1. Read the task file and understand what needs to be done
-2. Read the Company Handbook for rules and guidelines
-3. Execute the task directly (it's a simple task)
-4. If you discover the task is more complex than expected, create a Plan.md
-5. For sensitive actions, create an approval request in Pending_Approval/
-6. When complete, update Dashboard.md with the activity
+STEP 4 - MOVE TASK TO DONE:
+After creating the RESPONSE file, move the original task file to Done/ folder.
 
-⚠️ IMPORTANT - CREATE RESPONSE FILE:
-You MUST create a response file with your answer/output.
-File name: RESPONSE_[task_filename].md
-Location: Same folder as the task file (Needs_Action/)
+STEP 5 - OUTPUT COMPLETION SIGNAL:
+When completely done, output exactly: <TASK_COMPLETE/>
 
-Example: If task is 'Needs_Action/FILE_123.md', create 'Needs_Action/RESPONSE_FILE_123.md'
+IMPORTANT:
+- You MUST create the RESPONSE file
+- You MUST move the task to Done/
+- You MUST output <TASK_COMPLETE/>
 
-Use the file write tool to create this file with your complete response.
-For simple questions, just answer the question in the response file.
-'''
+Example RESPONSE file:
+If task is FILE_123.md, create RESPONSE_FILE_123.md
 
-        prompt += '''
-⚠️ CRITICAL REQUIREMENTS:
-1. FIRST: Create RESPONSE file with your answer (use file write tool)
-2. THEN: Complete any other actions
-3. FINALLY: Output exactly: <TASK_COMPLETE/>
-
-Without the RESPONSE file, the task is NOT complete!
+Now process the task. Read the file and create your response.
 '''
 
         try:
@@ -349,7 +329,7 @@ Without the RESPONSE file, the task is NOT complete!
             print(f"{'='*60}\n")
 
             result = subprocess.run(
-                f'qwen -p "{prompt}"' if use_shell else ['qwen', '-p', prompt],
+                f'qwen -p "{prompt}" -y' if use_shell else ['qwen', '-p', prompt, '-y'],
                 cwd=str(self.vault_path),
                 # NO capture - output goes to terminal
                 timeout=300,
@@ -375,10 +355,10 @@ Without the RESPONSE file, the task is NOT complete!
                 # Check if RESPONSE file was created
                 response_file = self.needs_action / f'RESPONSE_{item_path.name}'
                 if response_file.exists():
-                    self.logger.info(f'✓ RESPONSE FILE CREATED: {response_file.name}')
+                    self.logger.info(f'[OK] RESPONSE FILE CREATED: {response_file.name}')
                     print(f"[RESPONSE] File created: {response_file.name}\n")
                 else:
-                    self.logger.warning(f'✗ No RESPONSE file created for: {item_path.name}')
+                    self.logger.warning(f'[WARN] No RESPONSE file created for: {item_path.name}')
                     print(f"[WARNING] Qwen Code did not create RESPONSE file!\n")
                     print(f"  Expected: {response_file}\n")
 

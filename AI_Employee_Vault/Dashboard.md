@@ -12,9 +12,9 @@ tier: silver_enhanced
 
 | Metric | Value |
 |--------|-------|
-| Pending Tasks | 0 |
+| Pending Tasks | 1 |
 | Awaiting Approval | 0 |
-| Completed Today | 0 |
+| Completed Today | 1 |
 | Revenue MTD | $0 |
 
 ---
