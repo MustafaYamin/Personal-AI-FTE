@@ -1,10 +1,27 @@
-# AI Employee Vault - Silver Tier
+# AI Employee Vault - Silver Tier Enhanced
 
 A local-first, agent-driven personal automation system powered by Qwen Code and Obsidian.
 
-**Status: Silver Tier Complete ✅**
+**Status: Silver Tier Enhanced Complete ✅ | Ready for Gold Tier**
 
 > **Tagline:** Your life and business on autopilot. Local-first, agent-driven, human-in-the-loop.
+
+---
+
+## 📘 START HERE → [USER_GUIDE.md](./USER_GUIDE.md)
+
+**There is now ONE comprehensive guide that covers everything:**
+
+- ✅ How to start the system
+- ✅ How it works (with diagrams)
+- ✅ Complete testing guide
+- ✅ Daily operations
+- ✅ Troubleshooting
+- ✅ Quick reference
+
+**→ Open [USER_GUIDE.md](./USER_GUIDE.md) to get started!**
+
+---
 
 ## Quick Start
 

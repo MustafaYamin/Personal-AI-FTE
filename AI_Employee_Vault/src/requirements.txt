@@ -1,5 +1,5 @@
 # AI Employee - Python Dependencies
-# Silver Tier Requirements
+# Silver Tier Requirements (Enhanced)
 
 # ===================================================================
 # Core Dependencies (Bronze Tier)
@@ -20,10 +20,10 @@ google-auth-httplib2>=0.1.0
 google-auth-oauthlib>=1.0.0
 
 # ===================================================================
-# WhatsApp Watcher Dependencies (Silver Tier)
+# WhatsApp & LinkedIn Watcher Dependencies (Silver Tier Enhanced)
 # ===================================================================
 
-# Browser automation for WhatsApp Web
+# Browser automation for WhatsApp Web and LinkedIn
 playwright>=1.40.0
 
 # After installing, run: playwright install chromium

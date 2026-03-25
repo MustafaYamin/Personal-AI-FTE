@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Logs/2026-03-23.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-03-23"
+              "title": "README"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 227.5
+    "width": 346.5
   },
   "right": {
     "id": "713c5b9f1dbd7550",
@@ -186,41 +186,41 @@
   },
   "active": "64211692906386dc",
   "lastOpenFiles": [
+    "USER_GUIDE.md",
+    "README.md",
+    "DOCUMENTATION_SUMMARY.md",
+    "Dashboard.md",
+    "START_BY_STEP.md",
+    "Inbox/test_component.txt",
+    "src/__pycache__/dashboard_updater.cpython-314.pyc",
+    "src/test_components.py",
+    "src/Logs/watchers.log",
+    "START_HERE.md",
+    "Logs/2026-03-25.log",
+    "src/Logs/watchers_20262503_0924.log",
+    "src/Logs/watchers_20262503_0921.log",
+    "COMPLETE_SELF_START_GUIDE.md",
+    "SYSTEM_FLOWCHART.md",
+    "HOW_TO_START.md",
+    "TESTING_GUIDE.md",
+    "SIMPLE_START_GUIDE.md",
+    "src/DASHBOARD_AUTO_UPDATE.md",
+    "Logs/dashboard_updater_2026-03-25.log",
+    "src/dashboard_updater.py",
+    "Briefings/2026-03-25_CEO_Briefing.md",
+    "src/FINAL_VERIFICATION.md",
+    "src/VERIFICATION_REPORT.md",
+    "src/ENHANCED_FEATURES.md",
+    "src/EMAIL_APPROVAL_WORKFLOW.md",
+    "Logs/audit/audit_2026-03-25.jsonl",
+    "Logs/2026-03-23.md",
     "Done/EMAIL_20260323_093935_Hello world.md",
     "Plans/PLAN_20260323_092045_FILE_20260323_092041_test_math_simple.md",
     "Plans/PLAN_20260323_092057_FILE_20260323_092041_test_math_simple.md",
     "Plans/PLAN_20260323_083749_FILE_20260323_083738_pakistan.md",
-    "Dashboard.md",
-    "SIMPLE_START_GUIDE.md",
     "Needs_Action/EMAIL_20260323_093935_Hello world.md",
     "Done/FILE_20260323_090447_test_france_capital.md",
     "Done/FILE_20260323_092041_test_math_simple.md",
-    "Needs_Action/FILE_20260323_092041_test_math_simple.md",
-    "Inbox/test_math_simple.txt",
-    "Inbox/usa.txt",
-    "Logs/2026-03-23.md",
-    "Plans/PLAN_20260323_083757_FILE_20260323_083738_pakistan.md",
-    "Plans/PLAN_20260323_083758_FILE_20260323_083738_pakistan.md",
-    "Plans/PLAN_20260323_085942_FILE_20260323_085939_test_simple_question.md",
-    "Plans/PLAN_20260323_090451_FILE_20260323_090447_test_france_capital.md",
-    "Plans/PLAN_20260323_090457_FILE_20260323_090447_test_france_capital.md",
-    "Inbox/USA.txt",
-    "Done/FILE_20260323_085939_test_simple_question.md",
-    "HOW_TO_START.md",
-    "Needs_Action/FILE_20260323_090447_test_france_capital.md",
-    "Done/FILE_20260323_083738_pakistan.md",
-    "Inbox/test_france_capital.txt",
-    "Needs_Action/FILE_20260323_085939_test_simple_question.md",
-    "Inbox/test_simple_question.txt",
-    "START_HERE.md",
-    "Inbox/test_diagnostic_085614.txt",
-    "src/test_system.py",
-    "src/scheduler/start_all_watchers_visible.bat",
-    "TESTING_GUIDE.md",
-    "Needs_Action/FILE_20260323_083738_pakistan.md",
-    "Inbox/pakistan.txt",
-    "src/Logs/watchers_20262303_0834.log",
-    "README.md",
-    "src/EMAIL_APPROVAL_WORKFLOW.md"
+    "Needs_Action/FILE_20260323_092041_test_math_simple.md"
   ]
 }
