@@ -1,0 +1,187 @@
+AI EMPLOYEE SAAS REWRITE — PROGRESS LOG
+========================================
+Last updated: 2026-08-26 (session in progress)
+
+Plan reference: C:\Users\MUSTAFA\.claude\plans\i-am-turning-this-refactored-falcon.md
+(10-phase roadmap, multi-tenant SaaS, FastAPI backend + React frontend +
+PostgreSQL + a second FastAPI middleware for the LLM reasoning loop, WhatsApp/
+LinkedIn browser automation as a future dedicated 3rd service in Phase 6.)
+
+Working on: PHASE 1 — Foundations: Multi-Tenant Data Model, Auth, RBAC
+
+
+WHAT'S DONE
+-----------
+
+1. Legacy cleanup (user-approved)
+   - Deleted AI_Employee_Vault/ (the old Obsidian-based watcher/orchestrator
+     system), README.md, QWEN.md, SILVER_TIER_SUMMARY.md,
+     SILVER_TIER_EMAIL_WORKFLOW_FINAL_SUMMARY.md, EMAIL_APPROVAL_IMPLEMENTATION.md,
+     QUICK_REFERENCE_EMAIL_WORKFLOW.md, SECURITY_AND_GITIGNORE.md,
+     skills-lock.json, .qwen/.
+   - Fixed a real bug found in .gitignore: a "Files That SHOULD Be Committed"
+     section listed *.py, *.md, requirements.txt, package.json, tsconfig.json
+     etc. WITHOUT a leading "!" — in gitignore syntax that IGNORES those
+     patterns (the opposite of the stated intent), and was silently excluding
+     every new backend/frontend source file from git. Removed that section.
+   - Nothing has been committed yet — deletions are staged (git rm), new files
+     are untracked. Commit is still pending the user's explicit go-ahead.
+
+2. Backend (FastAPI #1) — feature-based structure under backend/app/
+   Structure:
+     app/core/        shared: config, db session, security (bcrypt+JWT),
+                       exceptions (one AppError hierarchy -> consistent JSON
+                       error shape), dependencies (get_current_user,
+                       require_role RBAC), pagination, enums (OrgRole,
+                       ActionType ported from legacy audit_logger.py),
+                       rate_limit (Redis-backed, fails open), middleware
+                       (request-id + slow-request logging)
+     app/models/       Base + mixins (UUIDPKMixin, TimestampMixin,
+                       TenantMixin) shared by every feature's tables
+     app/features/auth/           User, RefreshToken models; signup/login/
+                                   refresh/logout/me; JWT access+refresh with
+                                   server-side revocation and rotation
+     app/features/organizations/  Organization, OrgMembership, OrgInvitation
+                                   models; create-org, list/invite/accept/
+                                   role-change/remove-member, RBAC-enforced
+                                   (owner/admin/member/viewer), last-owner
+                                   protections, privilege-escalation guard
+                                   (only an owner can grant/revoke owner role)
+     app/features/audit/          AuditEvent model (append-only, ported from
+                                   legacy audit_logger.py schema incl. secret
+                                   redaction rules), record_event() helper
+                                   used by auth + organizations, paginated
+                                   query endpoint (admin+)
+     app/features/dashboard/      stub summary endpoint (zeros) — Phase 2
+                                   will replace with real aggregation once
+                                   tasks/approvals tables exist
+   Design notes:
+     - Every tenant-scoped table uses TenantMixin (org_id FK, indexed) so
+       tenant isolation can't be forgotten per-table.
+     - require_role() dependency resolves :org_id from the path, checks
+       membership + role; non-members get 404 (not 403) so org existence/
+       membership isn't leaked.
+     - Refactored org-creation logic (slug generation, owner membership,
+       audit event) into organizations/service.py::create_organization_for_user
+       so both /auth/signup (first org) and POST /organizations (additional
+       org for an existing user) share one implementation — no duplication.
+     - Token issuance (access+refresh, DB-persisted hashed refresh token)
+       lives in features/auth/tokens.py specifically to avoid a circular
+       import between auth.service and organizations.service (organizations
+       needs to log a user in on invite-accept; auth.service needs to create
+       an org on signup).
+     - Found and fixed a real circular-import bug: app/models/__init__.py was
+       eagerly importing all feature models (for Alembic's benefit), but
+       Python always initializes a package's __init__ before its submodules,
+       and feature models import app.models.base (a submodule of that same
+       package) — so importing any feature model re-triggered the
+       still-running __init__, which tried to import that same
+       not-yet-finished feature module. Fixed by making app/models/__init__.py
+       export only Base, and moving the "import every feature's models"
+       step into alembic/env.py where it belongs.
+   Alembic: alembic.ini, env.py (async, reads DATABASE_URL from app settings)
+   are in place. NOT YET DONE: no migration has been generated yet (planned
+   next step — will run `alembic revision --autogenerate` against the live
+   Postgres container).
+   No automated pytest suite written yet for this feature set — verification
+   so far has been live (see "Verified working" below).
+
+3. Middleware (FastAPI #2) — stub, feature-based skeleton ready for Phase 4
+   Structure: app/core/ (config, exceptions, logging — independent copy from
+   backend's, deliberately not a shared package, so each service can evolve/
+   deploy independently), app/features/health/ (GET /health). Confirmed
+   running and healthy in docker-compose. No agent-loop logic yet — that's
+   Phase 4.
+
+4. Frontend (React + TS + Vite + Tailwind) — in progress, feature-based
+   Done: package.json, vite.config.ts, tsconfig.json/.node.json, index.html,
+   tailwind/postcss config, global styles.
+   core/api/client.ts    single axios instance; auto-attaches bearer token;
+                         on 401, refreshes once (de-duped across concurrent
+                         requests via a shared in-flight promise) and retries
+                         the original request; redirects to /login if refresh
+                         fails
+   core/auth/tokenStorage.ts   the only module allowed to touch localStorage
+                               for tokens
+   core/lib/errors.ts    normalizeApiError() — the one place API errors get
+                         parsed into {status, code, message, fields}
+   core/lib/queryClient.ts   shared TanStack Query client
+   core/api/types.ts     shared Page<T> type matching backend pagination
+   core/components/ui/   Button, Input, Card, Spinner, ErrorBanner (reusable
+                         primitives every feature's forms/pages should use)
+   NOT YET DONE (frontend): AuthContext/useAuth, app shell + protected
+   routing (app/router.tsx, app/providers.tsx), and the actual feature pages
+   (auth login/signup, organizations switcher + invite UI, dashboard page).
+   `npm install` has not been run yet — dependencies are declared in
+   package.json but not installed, and the dev server has not been started.
+
+5. Infra
+   - Root docker-compose.yml: postgres (16-alpine), redis (7-alpine),
+     backend, middleware. Dev-friendly: bind-mounted source + --reload.
+   - Root .env / .env.example, backend/.env.example, middleware/.env.example,
+     frontend/.env.example.
+   - Docker Desktop was not running at first attempt; started it and waited
+     for the daemon before building.
+
+
+VERIFIED WORKING (live, via docker compose)
+--------------------------------------------
+  docker compose ps  ->  postgres, redis, backend, middleware all "healthy"
+  curl http://localhost:8000/health   -> {"status":"ok"}          (backend)
+  curl http://localhost:8000/docs     -> 200                      (backend Swagger UI reachable)
+  curl http://localhost:8100/health   -> {"status":"ok","service":"middleware"}
+
+NOT YET VERIFIED
+-----------------
+  - No Alembic migration generated/run yet -> the actual Postgres schema
+    (organizations/users/org_memberships/org_invitations/audit_events tables)
+    does NOT exist in the database yet. signup/login/etc. endpoints will
+    currently fail against the DB until this is done.
+  - No end-to-end curl test of signup -> login -> invite -> accept ->
+    dashboard summary yet.
+  - No backend pytest run yet.
+  - Frontend has not been npm-installed or started (`npm run dev`) yet.
+  - No visual/browser check of any frontend page yet.
+
+
+IMMEDIATE NEXT STEPS (in order)
+--------------------------------
+  1. Generate + apply the initial Alembic migration against the running
+     Postgres container; confirm tables exist.
+  2. curl-based smoke test of the full auth + org flow end to end.
+  3. Finish frontend core layer: AuthContext/useAuth, router + protected
+     routes, app shell.
+  4. Build frontend feature pages: auth (login/signup), organizations
+     (switcher + invite member form), dashboard (stub summary display).
+  5. npm install + npm run dev; verify the app loads and the signup/login
+     flow works against the real backend in the browser.
+  6. Write a minimal backend pytest suite (auth + organizations happy paths
+     and a couple of RBAC/last-owner edge cases).
+  7. Update CLAUDE.md (currently still describes the deleted Obsidian/Qwen
+     system) to describe the new backend/middleware/frontend architecture.
+  8. Report Phase 1 complete to the user; do not commit anything to git
+     until explicitly asked.
+
+Other known follow-ups (not blocking):
+  - Root README.md was deleted with the legacy docs; nothing has replaced it
+    yet. Worth writing a new one once Phase 1 is demoable end to end.
+  - "Personal AI Employee Hackathon 0_...md" (the original blueprint doc) was
+    intentionally left in place — it was not part of the user-approved
+    cleanup scope.
+
+
+REPO LAYOUT SO FAR
+-------------------
+backend/
+  app/core/, app/models/, app/features/{auth,organizations,audit,dashboard}/
+  alembic/ (env.py, script.py.mako, versions/ — empty so far)
+  requirements.txt, Dockerfile, .env.example, alembic.ini
+middleware/
+  app/core/, app/features/health/
+  requirements.txt, Dockerfile, .env.example
+frontend/
+  src/core/{api,auth,components/ui,lib}/
+  src/features/{auth,organizations,dashboard}/  (folders created, mostly empty)
+  package.json, vite.config.ts, tsconfig*.json, tailwind/postcss config
+docker-compose.yml, .env.example (root)
+CLAUDE.md (stale — still describes the old system, needs rewriting)

@@ -271,43 +271,12 @@ yarn-error.log
 !.gitattributes
 !.gitmodules
 
-# Qwen Code skills (safe to commit)
-.qwen/
-skills-lock.json
-
-# -----------------------------------------------------------------------------
-# ✅ Files That SHOULD Be Committed (Explicitly Included)
-# -----------------------------------------------------------------------------
-
-# Source code
-*.py
-!__pycache__/
-
-# Documentation
-*.md
-README*
-LICENSE
-CHANGELOG
-
-# Scripts
-*.bat
-*.ps1
-*.sh
-
-# Configuration (non-sensitive)
-requirements.txt
-package.json
-tsconfig.json
-
-# Obsidian vault structure (not content)
-AI_Employee_Vault/README.md
-AI_Employee_Vault/Company_Handbook.md
-AI_Employee_Vault/Dashboard.md
-AI_Employee_Vault/TESTING_GUIDE.md
-AI_Employee_Vault/src/README.md
-AI_Employee_Vault/src/scheduler/README.md
-AI_Employee_Vault/src/EMAIL_APPROVAL_WORKFLOW.md
-
 # =============================================================================
 # End of .gitignore
 # =============================================================================
+# NOTE: a previous "Files That SHOULD Be Committed (Explicitly Included)"
+# section here listed *.py, *.md, requirements.txt, package.json, tsconfig.json
+# etc. WITHOUT a leading "!" — in gitignore syntax that IGNORES those patterns,
+# the opposite of the intent, and was silently excluding all backend/frontend
+# source files from git. Removed. Nothing needs "explicit inclusion" here:
+# git tracks anything not matched by an ignore rule above by default.

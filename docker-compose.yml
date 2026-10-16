@@ -1,0 +1,69 @@
+name: ai-fte
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ai_fte}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ai_fte_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-ai_fte}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ai_fte}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: development
+      DEBUG: "true"
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-ai_fte}:${POSTGRES_PASSWORD:-ai_fte_dev_password}@postgres:5432/${POSTGRES_DB:-ai_fte}
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:?set JWT_SECRET_KEY in .env}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  middleware:
+    build: ./middleware
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: development
+      DEBUG: "true"
+      BACKEND_API_URL: http://backend:8000/api/v1
+    ports:
+      - "8100:8100"
+    depends_on:
+      - backend
+    volumes:
+      - ./middleware:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8100 --reload
+
+volumes:
+  postgres_data:
