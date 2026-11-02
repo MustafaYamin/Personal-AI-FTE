@@ -4,6 +4,12 @@
 
 A comprehensive blueprint and implementation framework for building a **Personal AI Employee** (Digital Full-Time Equivalent) powered by **Qwen Code** and **Obsidian**. This AI agent proactively manages personal and business affairs 24/7 using a local-first, privacy-focused architecture.
 
+> **Current architecture.** The app in [`app/`](app/) (built from [OpenMuse](https://github.com/CopilotKit/openmuse), MIT, upstream commit `a4944f4`) now runs the system: tasks, approvals, Gmail and Calendar, browser, Linux computer, PDFs, finance, goals, and the iOS, Android and web client. The Python watchers still feed it through `AI_Employee_Vault/Needs_Action/`. The old Python orchestrator and Playwright skill are gone, so older sections below that describe them are out of date.
+>
+> **Run it:** copy `app/.env.example` to `app/.env`, set `CPK_INTELLIGENCE_API_KEY`, then run `pnpm install --frozen-lockfile`, `pnpm dev` and `pnpm dev:web` from `app/`, and `python filesystem_watcher.py ..` from `AI_Employee_Vault/src/`. Set `TASK_BACKEND=qwen` to run delegated tasks on Qwen Code; otherwise they use `MODEL`.
+>
+> **The vault still works as before:** drop files in `Inbox/`, approve by moving `REVIEW_*.md` from `Pending_Approval/` to `Approved/` or `Rejected/` (or in the app), and find results in `Done/`, `Plans/`, `Logs/` and `Dashboard.md`. `Company_Handbook.md` applies to chat and tasks. Reviews expire after 30 minutes.
+
 [![Status](https://img.shields.io/badge/status-bronze--complete-brightgreen)](https://github.com/MustafaYamin/Personal-AI-FTE.git)
 [![Tier](https://img.shields.io/badge/tier-Bronze-orange)](https://github.com/MUSTAFA/Personal-AI-FTE)
 [![Qwen Code](https://img.shields.io/badge/AI-Qwen%20Code-blue)](https://qwen.ai)

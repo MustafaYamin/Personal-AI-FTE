@@ -1,5 +1,7 @@
 # Personal AI FTE - Project Context
 
+> Qwen Code now runs as a task backend of the app in `app/` (`TASK_BACKEND=qwen`), which sends it each task over stdin and handles all approvals. The orchestrator and `.qwen/skills` content described below has been removed; see the root README.
+
 ## Project Overview
 
 This repository contains a blueprint and implementation framework for building a **Personal AI Employee** (Digital FTE - Full-Time Equivalent). It's a local-first, agent-driven automation system where an AI agent powered by **Qwen Code** and **Obsidian** proactively manages personal and business affairs 24/7.

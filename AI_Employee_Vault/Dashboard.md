@@ -10,11 +10,11 @@ tier: silver_enhanced
 
 ## Quick Status
 
+<!-- fte:status:start -->
+<!-- fte:status:end -->
+
 | Metric | Value |
 |--------|-------|
-| Pending Tasks | 1 |
-| Awaiting Approval | 0 |
-| Completed Today | 1 |
 | Revenue MTD | $0 |
 
 ---
