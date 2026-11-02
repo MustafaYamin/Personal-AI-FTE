@@ -311,3 +311,13 @@ AI_Employee_Vault/src/EMAIL_APPROVAL_WORKFLOW.md
 # =============================================================================
 # End of .gitignore
 # =============================================================================
+
+# -----------------------------------------------------------------------------
+# App (formerly the OpenMuse clone)
+# -----------------------------------------------------------------------------
+# Re-include the whole app past the patterns above. app/.gitignore takes
+# precedence inside app/, so .env, node_modules and .openmuse stay ignored.
+# Keep this scoped: a global !*.md or !*.py would expose private vault content.
+!app/**
+# Also match before the directory exists, and if app/.gitignore ever changes.
+app/.openmuse

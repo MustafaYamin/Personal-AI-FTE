@@ -2,7 +2,7 @@
 
 A local-first, agent-driven personal automation system powered by Qwen Code and Obsidian.
 
-**Status: Silver Tier Enhanced Complete ✅ | Ready for Gold Tier**
+**Status: this vault now runs through the app in `../app`. See the root README.** The orchestrator, scheduler, Gmail and WhatsApp watcher instructions below describe files that are not in this repository.
 
 > **Tagline:** Your life and business on autopilot. Local-first, agent-driven, human-in-the-loop.
 
