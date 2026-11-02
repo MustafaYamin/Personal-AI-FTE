@@ -321,3 +321,6 @@ AI_Employee_Vault/src/EMAIL_APPROVAL_WORKFLOW.md
 !app/**
 # Also match before the directory exists, and if app/.gitignore ever changes.
 app/.openmuse
+
+# CopilotKit CLI project record (org IDs and a local path)
+.copilotkit/
