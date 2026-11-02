@@ -11,6 +11,16 @@ tier: silver_enhanced
 ## Quick Status
 
 <!-- fte:status:start -->
+| Metric | Value |
+|--------|-------|
+| Pending Tasks | 0 |
+| Awaiting Approval | 0 |
+| Waiting For You | 0 |
+| Completed Today | 0 |
+| Task Worker | Running |
+
+| Recent Task | Status |
+|-------------|--------|
 <!-- fte:status:end -->
 
 | Metric | Value |
