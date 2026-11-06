@@ -1223,7 +1223,20 @@ export function ConnectionsScreen({ query = "" }: { query?: string }) {
   }
   const google = w.connections.find((c) => c.id === "google");
   const connected = google?.status === "connected" || google?.status === "sample";
+  const email = w.connections.find((c) => c.id === "email");
   const rows = [
+    ...(email
+      ? [
+          {
+            id: "email",
+            name: `Email · ${email.account ?? "SMTP/IMAP"}`,
+            icon: Mail,
+            color: "#1F8A5B",
+            connected: email.status === "connected",
+            group: "email",
+          },
+        ]
+      : []),
     { id: "gmail", name: "Gmail", icon: Mail, color: "#EA5B4D", connected, group: "google" },
     {
       id: "calendar",
@@ -1271,7 +1284,10 @@ export function ConnectionsScreen({ query = "" }: { query?: string }) {
                   accessibilityRole="button"
                   accessibilityLabel={`Manage ${row.name}`}
                   onPress={() =>
-                    row.group === "browser" ? open({ type: "computer" }) : setSelected(row.group)
+                    row.group === "browser"
+                      ? open({ type: "computer" })
+                      : // SMTP/IMAP is configured in the server's .env, so there is nothing to manage here.
+                        row.group !== "email" && setSelected(row.group)
                   }
                   style={[
                     s.row,
