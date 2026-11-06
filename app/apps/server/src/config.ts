@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { parseEnv } from "node:util";
+import type { MailboxConfig } from "../../../packages/integrations/src/mail.ts";
 
 /** .env keys whose file value loses to a different value already set in the environment. */
 export function shadowedEnvKeys(
@@ -65,6 +66,12 @@ export interface Config {
   e2bApiKey?: string;
   allowedOrigins: string[];
   trustProxy?: boolean;
+  /** The owner's own mailbox over SMTP and IMAP. When set, it replaces Gmail for mail. */
+  mailbox?: MailboxConfig;
+  /** How often the monitor checks IMAP for new mail. */
+  mailPollSeconds?: number;
+  /** Which new emails become vault tasks: every message, personal mail only, or none. */
+  mailAutoTasks?: "all" | "personal" | "off";
 }
 
 export type ComputerProvider = "docker" | "e2b-desktop";
@@ -108,6 +115,45 @@ export function browserWorkerUrl(value?: string): string | undefined {
 // writes never re-fire here: they are dispatched outside the model loop through
 // reviewed, idempotency-keyed actions.
 export const MODEL_MAX_RETRIES = 2;
+
+const flag = (value: string | undefined, fallback: boolean) =>
+  value?.trim() ? /^(1|true|yes)$/i.test(value.trim()) : fallback;
+
+/** SMTP_HOST turns the mailbox on; IMAP settings default to the SMTP account. */
+export function readMailbox(env: Record<string, string | undefined> = process.env) {
+  const host = env.SMTP_HOST?.trim();
+  if (!host) return undefined;
+  const user = env.SMTP_USER?.trim() ?? "";
+  const pass = env.SMTP_PASS ?? "";
+  if (!user || !pass) throw new Error("SMTP_HOST requires SMTP_USER and SMTP_PASS");
+  const port = Number(env.SMTP_PORT?.trim() || 587);
+  const imapPort = Number(env.IMAP_PORT?.trim() || 993);
+  if (!Number.isInteger(port) || !Number.isInteger(imapPort))
+    throw new Error("SMTP_PORT and IMAP_PORT must be port numbers");
+  const from = env.MAIL_FROM?.trim() || user;
+  if (!/^[^\s@]+@[^\s@]+$/.test(from))
+    throw new Error("MAIL_FROM (or SMTP_USER) must be an email address");
+  const config: MailboxConfig = {
+    from,
+    fromName: env.MAIL_FROM_NAME?.trim() || undefined,
+    smtp: { host, port, secure: flag(env.SMTP_SECURE, port === 465), user, pass },
+    imap: {
+      host: env.IMAP_HOST?.trim() || host.replace(/^smtp\./i, "imap."),
+      port: imapPort,
+      secure: flag(env.IMAP_SECURE, imapPort === 993),
+      user: env.IMAP_USER?.trim() || user,
+      pass: env.IMAP_PASS || pass,
+    },
+    saveSent: flag(env.MAIL_SAVE_SENT, false),
+  };
+  return config;
+}
+function mailAutoTasks(value?: string): "all" | "personal" | "off" {
+  const mode = value?.trim() || "personal";
+  if (mode !== "all" && mode !== "personal" && mode !== "off")
+    throw new Error("MAIL_AUTO_TASKS must be all, personal or off");
+  return mode;
+}
 export function readConfig(): Config {
   const mode = process.env.WORKSPACE_MODE ?? "sample";
   if (mode !== "sample" && mode !== "live")
@@ -182,6 +228,9 @@ export function readConfig(): Config {
     // Only trust X-Forwarded-For/X-Real-IP when the deployment is known to sit
     // behind a proxy that sets them; otherwise a direct caller can spoof them.
     trustProxy: process.env.TRUST_PROXY === "true",
+    mailbox: readMailbox(),
+    mailPollSeconds: Math.max(15, Number(process.env.MAIL_POLL_SECONDS?.trim() || 60) || 60),
+    mailAutoTasks: mailAutoTasks(process.env.MAIL_AUTO_TASKS),
   };
   if (
     mode === "live" &&

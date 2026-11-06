@@ -24,8 +24,12 @@ interface Options {
     target?: CalendarEvent;
     targetVersion?: string;
   }>;
-  connected: (owner: string) => Promise<boolean>;
-  connection?: (owner: string) => Promise<{ id: string; account: string } | null>;
+  connected: (owner: string, kind?: ProposalInput["kind"]) => Promise<boolean>;
+  /** The account the action runs as; email can use a different account than Calendar. */
+  connection?: (
+    owner: string,
+    kind?: ProposalInput["kind"],
+  ) => Promise<{ id: string; account: string } | null>;
   now?: () => number;
 }
 export class ActionService {
@@ -51,7 +55,7 @@ export class ActionService {
       if (existing) return existing;
     }
     const parsed = proposalSchema.parse(raw);
-    const connection = await this.options.connection?.(owner);
+    const connection = await this.options.connection?.(owner, parsed.kind);
     if (this.options.connection && !connection)
       throw new AppError("Connect Google before preparing an action", 409);
     const prepared = await this.options.prepare?.(owner, parsed, connection?.id);
@@ -133,10 +137,10 @@ export class ActionService {
       }
       throw new AppError("This review expired. Create a fresh proposal.", 409);
     }
-    if (decision === "approve" && !(await this.options.connected(owner)))
+    if (decision === "approve" && !(await this.options.connected(owner, proposal.kind)))
       throw new AppError("Google is disconnected. Reconnect before approving this action.", 409);
     if (decision === "approve" && this.options.connection) {
-      const connection = await this.options.connection(owner);
+      const connection = await this.options.connection(owner, proposal.kind);
       if (
         !connection ||
         connection.id !== proposal.connectionId ||

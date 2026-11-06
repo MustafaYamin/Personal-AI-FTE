@@ -42,8 +42,8 @@ export async function createApp(
     execute: (owner, input, connectionId, targetVersion) =>
       workspace.execute(owner, input, connectionId, targetVersion),
     prepare: (owner, input, connectionId) => workspace.prepare(owner, input, connectionId),
-    connected: (owner) => workspace.connected(owner),
-    connection: (owner) => workspace.connection(owner),
+    connected: (owner, kind) => workspace.connected(owner, kind),
+    connection: (owner, kind) => workspace.connection(owner, kind),
   });
   const browser = new BrowserService(db, config, auth, files);
   const computer = new ComputerService(db, config, options.docker);
@@ -89,7 +89,9 @@ export async function createApp(
     return c.json(
       {
         error:
-          error.name === "PdfError" || error.name === "GoogleApiError"
+          error.name === "PdfError" ||
+          error.name === "GoogleApiError" ||
+          error.name === "MailboxError"
             ? error.message
             : "Request failed. Check the server setup and try again.",
       },
@@ -178,6 +180,22 @@ export async function createApp(
       .parse(c.req.query());
     if (query.timeMin && query.timeMax) calendarRangeSchema.parse(query);
     return c.json(await workspace.events(c.get("owner"), query));
+  });
+  app.get("/api/mail/status", async (c) => {
+    const connection = workspace.mailboxConnection();
+    if (!workspace.mailbox || !connection)
+      return c.json({ configured: false, account: null, monitor: null });
+    await workspace.mailbox.verify();
+    return c.json({
+      configured: true,
+      account: connection.account,
+      monitor: await db.get(c.get("owner"), "settings", "mail-monitor"),
+    });
+  });
+  app.post("/api/mail/check", async (c) => {
+    if (!agent.mailMonitor) throw new AppError("Email monitoring is not configured", 409);
+    await agent.mailMonitor.check();
+    return c.json({ monitor: await db.get(c.get("owner"), "settings", "mail-monitor") });
   });
   app.get("/api/mail/threads/:id", async (c) =>
     c.json(await workspace.thread(c.get("owner"), c.req.param("id"))),

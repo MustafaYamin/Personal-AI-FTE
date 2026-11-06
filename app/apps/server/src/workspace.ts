@@ -11,6 +11,12 @@ import type {
   Workspace,
 } from "../../../packages/domain/src/index.ts";
 import { GoogleClient } from "../../../packages/integrations/src/google.ts";
+import {
+  MailboxClient,
+  type MailboxMessage,
+  mailboxConnectionId,
+  threadRoot,
+} from "../../../packages/integrations/src/mail.ts";
 import { createSamplePdf } from "../../../packages/integrations/src/pdf.ts";
 import type { ActionService } from "./actions.ts";
 import { agentConfigured } from "./agent.ts";
@@ -19,21 +25,76 @@ import type { Store } from "./db.ts";
 import { AppError } from "./errors.ts";
 import type { Files } from "./files.ts";
 import type { GoogleAuth } from "./google-auth.ts";
+import { backgroundFailure } from "./log.ts";
+
+type StoredMailboxMessage = MailboxMessage & { connectionId: string };
+const publicMail = ({
+  uid: _uid,
+  bulk: _bulk,
+  messageId: _messageId,
+  references: _references,
+  connectionId: _connectionId,
+  ...mail
+}: MailboxMessage & { connectionId?: string }): Mail => mail;
 
 export class WorkspaceService {
   private seeding = new Map<string, Promise<void>>();
+  /** The owner's SMTP/IMAP mailbox. When configured it handles all mail; Google keeps Calendar. */
+  readonly mailbox?: MailboxClient;
   constructor(
     private readonly db: Store,
     private readonly config: Config,
     private readonly files: Files,
     private readonly googleAuth: GoogleAuth,
-  ) {}
+  ) {
+    if (config.mailbox) this.mailbox = new MailboxClient(config.mailbox);
+  }
+  mailboxConnection() {
+    return this.config.mailbox
+      ? { id: mailboxConnectionId(this.config.mailbox), account: this.config.mailbox.from }
+      : null;
+  }
+  /** Stores IMAP messages so replies and attachments resolve by message ID later. */
+  async cacheMailbox(owner: string, mail: MailboxMessage[]): Promise<Mail[]> {
+    const connection = this.mailboxConnection();
+    if (!connection) return [];
+    const imports = await this.db.list<{ id: string; artifactId: string; connectionId?: string }>(
+      owner,
+      "imports",
+    );
+    const result: Mail[] = [];
+    for (const message of mail) {
+      await this.db.put(owner, "mail", { ...message, connectionId: connection.id });
+      result.push(
+        publicMail({
+          ...message,
+          attachments: message.attachments.map(
+            (ref) =>
+              imports.find((i) => i.id === ref && i.connectionId === connection.id)?.artifactId ??
+              ref,
+          ),
+        }),
+      );
+    }
+    return result;
+  }
+  /** Mailbox messages already read, shown while IMAP is briefly unreachable. */
+  private async cachedMailbox(owner: string) {
+    const connection = this.mailboxConnection();
+    return (await this.db.list<StoredMailboxMessage>(owner, "mail"))
+      .filter((m) => m.connectionId === connection?.id && m.label === "Inbox")
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .slice(0, 25)
+      .map(publicMail);
+  }
   google(owner: string, connectionId?: string) {
     return new GoogleClient({
       getAccessToken: () => this.googleAuth.accessToken(owner, connectionId),
     });
   }
-  async connection(owner: string) {
+  /** The account an action runs as. Email uses the SMTP mailbox when one is configured. */
+  async connection(owner: string, kind?: ProposalInput["kind"]) {
+    if (kind === "email.send" && this.mailbox) return this.mailboxConnection();
     if (this.config.mode === "sample") {
       const value = await this.db.get<{ enabled: boolean; connectionId?: string }>(
         owner,
@@ -47,7 +108,8 @@ export class WorkspaceService {
     const tokens = await this.googleAuth.tokens(owner);
     return tokens ? { id: tokens.connectionId, account: tokens.account } : null;
   }
-  async connected(owner: string) {
+  async connected(owner: string, kind?: ProposalInput["kind"]) {
+    if (kind === "email.send" && this.mailbox) return true;
     return this.config.mode === "sample"
       ? (await this.db.get<{ enabled: boolean }>(owner, "settings", "google"))?.enabled !== false
       : Boolean(await this.googleAuth.tokens(owner));
@@ -123,6 +185,12 @@ export class WorkspaceService {
     return result;
   }
   async thread(owner: string, id: string) {
+    if (this.mailbox) {
+      if (!threadRoot(id)) throw new AppError("Mail thread not found", 404);
+      const mail = await this.cacheMailbox(owner, await this.mailbox.thread(id));
+      if (!mail.length) throw new AppError("Mail thread not found", 404);
+      return mail;
+    }
     const connection = await this.connection(owner);
     if (!connection) throw new AppError("Google is disconnected", 409);
     const mail =
@@ -137,6 +205,7 @@ export class WorkspaceService {
     return mail.sort((a, b) => a.date.localeCompare(b.date));
   }
   async searchMail(owner: string, query: string) {
+    if (this.mailbox) return this.cacheMailbox(owner, await this.mailbox.list(query, 50));
     const connection = await this.connection(owner);
     if (!connection) throw new AppError("Google is disconnected", 409);
     if (this.config.mode === "live")
@@ -298,15 +367,15 @@ export class WorkspaceService {
       if (!connection) throw new AppError("Google is disconnected", 409);
       const google = this.google(owner, connection.id);
       const [mailResult, eventResult] = await Promise.all([
-        wantMail ? google.listMail(query) : Promise.resolve([] as Mail[]),
+        wantMail && !this.mailbox ? google.listMail(query) : Promise.resolve([] as Mail[]),
         wantEvents ? google.listEvents() : Promise.resolve([] as CalendarEvent[]),
       ]);
       mail = mailResult;
       events = eventResult;
-      if (wantMail) mail = await this.cacheMail(owner, mail, connection.id);
+      if (wantMail && !this.mailbox) mail = await this.cacheMail(owner, mail, connection.id);
       for (const event of events) await this.db.put(owner, "events", event);
     } else if (this.config.mode === "sample" && connected) {
-      if (wantMail) {
+      if (wantMail && !this.mailbox) {
         mail = await this.db.list<Mail>(owner, "mail");
         if (query)
           mail = mail.filter((m) =>
@@ -315,6 +384,15 @@ export class WorkspaceService {
       }
       if (wantEvents) events = await this.db.list<CalendarEvent>(owner, "events");
     }
+    if (wantMail && this.mailbox)
+      mail = await this.mailbox
+        .list(query ?? "", 25)
+        .then((messages) => this.cacheMailbox(owner, messages))
+        .catch((error) => {
+          // The rest of the workspace stays usable while the mail server is unreachable.
+          backgroundFailure("mailbox read", error);
+          return this.cachedMailbox(owner);
+        });
     return { mail, events, connected };
   }
 
@@ -325,7 +403,10 @@ export class WorkspaceService {
       mode: this.config.mode,
       profile: {
         name: this.config.mode === "sample" ? "Alex" : "You",
-        email: tokens?.account ?? (this.config.mode === "sample" ? "alex@example.com" : ""),
+        email:
+          this.mailbox?.account ??
+          tokens?.account ??
+          (this.config.mode === "sample" ? "alex@example.com" : ""),
       },
       mail: mail.sort((a, b) => b.date.localeCompare(a.date)),
       events: events.sort((a, b) => a.start.localeCompare(b.start)),
@@ -347,6 +428,17 @@ export class WorkspaceService {
           capabilities:
             this.config.mode === "sample" ? ["Gmail", "Calendar"] : (tokens?.scopes ?? []),
         },
+        ...(this.mailbox
+          ? [
+              {
+                id: "email",
+                name: "Email",
+                status: "connected" as const,
+                account: this.mailbox.account,
+                capabilities: ["Read inbox (IMAP)", "Send (SMTP)", "New-mail monitor"],
+              },
+            ]
+          : []),
         {
           id: "browser",
           name: "Browser",
@@ -414,6 +506,11 @@ export class WorkspaceService {
     connectionId?: string,
     targetVersion?: string,
   ): Promise<string> {
+    if (input.kind === "email.send" && this.mailbox) {
+      if (connectionId !== this.mailboxConnection()?.id)
+        throw new AppError("The email account changed. Prepare a new email.", 409);
+      return this.sendFromMailbox(owner, input.data);
+    }
     if (this.config.mode === "sample") {
       if (input.kind === "email.send") {
         const id = randomUUID();
@@ -479,7 +576,66 @@ export class WorkspaceService {
     await this.db.put(owner, "events", event);
     return `Google Calendar event · ${event.id}`;
   }
+  private async sendFromMailbox(
+    owner: string,
+    draft: Extract<ProposalInput, { kind: "email.send" }>["data"],
+  ) {
+    if (!this.mailbox) throw new AppError("Email is not configured", 409);
+    const attachments = await Promise.all(
+      draft.attachmentIds.map(async (id) => {
+        const file = await this.files.get(owner, id);
+        return {
+          name: file.name,
+          mimeType: file.mimeType,
+          bytes: await this.files.bytes(owner, id),
+        };
+      }),
+    );
+    // Reply headers come from the stored message, never from text the model wrote.
+    const original = draft.replyToMessageId
+      ? await this.db.get<StoredMailboxMessage>(owner, "mail", draft.replyToMessageId)
+      : null;
+    const root = draft.threadId ? threadRoot(draft.threadId) : null;
+    const reply = original?.messageId
+      ? { messageId: original.messageId, references: original.references }
+      : root
+        ? { references: [root] }
+        : undefined;
+    const receipt = await this.mailbox.send(draft, attachments, reply);
+    return `Sent by SMTP as ${this.mailbox.account} · ${receipt.id}`;
+  }
+  private async importMailboxAttachment(owner: string, reference: string): Promise<Artifact> {
+    const connection = this.mailboxConnection();
+    if (!this.mailbox || !connection) throw new AppError("Email is not configured", 409);
+    const cached = await this.db.get<{ artifactId: string; connectionId?: string }>(
+      owner,
+      "imports",
+      reference,
+    );
+    if (cached && cached.connectionId === connection.id)
+      return this.files.signed(owner, await this.files.get(owner, cached.artifactId));
+    const [messageId, index, filename] = reference.split(":");
+    const message = await this.db.get<StoredMailboxMessage>(owner, "mail", messageId ?? "");
+    if (!message?.attachments.includes(reference) || message.connectionId !== connection.id)
+      throw new AppError("Attachment not found. Refresh the inbox.", 404);
+    const file = await this.files.import(
+      owner,
+      decodeURIComponent(filename ?? "attachment.pdf"),
+      await this.mailbox.attachment(message.id, Number(index)),
+      `Email · ${message.subject}`,
+      undefined,
+      JSON.stringify(["attachment", connection.id, reference]),
+    );
+    await this.db.put(owner, "imports", {
+      id: reference,
+      artifactId: file.id,
+      connectionId: connection.id,
+    });
+    return file;
+  }
   async importAttachment(owner: string, reference: string): Promise<Artifact> {
+    if (this.mailbox && /^(inbox|sent)~/.test(reference))
+      return this.importMailboxAttachment(owner, reference);
     const connection = await this.connection(owner);
     if (!connection) throw new AppError("Google is disconnected", 409);
     const cached = await this.db.get<{ artifactId: string; connectionId?: string }>(

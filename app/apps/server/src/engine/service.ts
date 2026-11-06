@@ -31,6 +31,7 @@ import type { Store } from "../db.ts";
 import { AppError } from "../errors.ts";
 import type { Files } from "../files.ts";
 import { backgroundFailure } from "../log.ts";
+import { MailMonitor } from "../mail-monitor.ts";
 import { SearchService } from "../search.ts";
 import { VaultBridge } from "../vault.ts";
 import type { WorkspaceService } from "../workspace.ts";
@@ -55,6 +56,7 @@ export class AgentService {
   readonly worker: TaskWorker;
   readonly search: SearchService;
   readonly vault?: VaultBridge;
+  readonly mailMonitor?: MailMonitor;
   private maintenance?: ReturnType<typeof setInterval>;
   private refreshing = false;
   constructor(
@@ -68,6 +70,7 @@ export class AgentService {
   ) {
     this.search = new SearchService(db);
     if (config.vaultPath) this.vault = new VaultBridge(this, config.vaultPath);
+    if (workspace.mailbox) this.mailMonitor = new MailMonitor(this, config);
     this.worker = new TaskWorker(db, (owner, task, context) => this.execute(owner, task, context), {
       settled: (owner, task) => this.publishOutcome(owner, task),
     });
@@ -75,6 +78,7 @@ export class AgentService {
   start() {
     this.worker.start();
     this.vault?.start();
+    this.mailMonitor?.start();
     // Maintenance is independent of the HTTP response and reconciles durable records.
     void this.maintain().catch((error) => backgroundFailure("initial maintenance", error));
     this.maintenance = setInterval(() => {
@@ -84,6 +88,7 @@ export class AgentService {
   async stop() {
     if (this.maintenance) clearInterval(this.maintenance);
     this.maintenance = undefined;
+    await this.mailMonitor?.stop();
     await this.vault?.stop();
     await this.worker.stop();
     while (this.refreshing) await new Promise((resolve) => setTimeout(resolve, 10));
